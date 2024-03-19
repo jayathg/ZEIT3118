@@ -1,0 +1,22 @@
+{
+  "name": "zeit3118",
+  "version": "1.0.0",
+  "description": "An implementation of authentication without the use of keyboards",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayathg/ZEIT3118.git"
+  },
+  "author": "Jayath Gunawardena, Kiara Nand, Liam Newton, Nicola Mitchell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jayathg/ZEIT3118/issues"
+  },
+  "homepage": "https://github.com/jayathg/ZEIT3118#readme",
+  "dependencies": {
+    "express": "^4.18.3"
+  }
+}
