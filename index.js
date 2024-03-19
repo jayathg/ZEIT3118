@@ -35,12 +35,9 @@ app.post('/login', bodyParser.json(), async (req, res) => {
   const loginResult = await verifyLogIn(userID);
 
   if (loginResult.success) {
-      //Do whatever we have to do with descope
-
-      
 
       // Include necessary data in response body
-      res.json({ success: true, message: 'Welcome to website' });
+      res.json({ success: true });
 
   } else {
 
