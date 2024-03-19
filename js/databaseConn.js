@@ -122,3 +122,11 @@ function deleteUser(userID){
         });
     });
 }
+
+module.exports = {
+    addUser,
+    verifyLogin,
+    getUserID,
+    editUser,
+    deleteUser
+};
