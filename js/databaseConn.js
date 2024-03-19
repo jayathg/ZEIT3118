@@ -72,3 +72,53 @@ function verifyLogin(userID){
     })
 }
 
+function getUserID(email){
+    return new Promise((resolve, reject) => {
+        const getUserID = "SELECT employeeID FROM ZEIT3118.User WHERE email = ?";
+        conn.query(getUserID, [email], function(err, result){
+            if(err){
+                resolve({success: false, message: "Unable to get user ID" + err.message});
+            }else if(result.length === 0){
+                resolve({success: false, message: "Invalid email"});
+            }else{
+                resolve({success: true, message: "User ID found", userID: result[0].employeeID});
+            }
+        });
+    })
+}
+
+function editUser(userID, firstName, lastName, email, accessLevel){
+    return new Promise((resolve, reject) => {
+        const editUser = "UPDATE ZEIT3118.User SET firstName = ?, lastName = ?, email = ?, accessLevel = ? WHERE employeeID = ?";
+        const getUserDetails = "SELECT * FROM ZEIT3118.User WHERE employeeID = ?";
+        conn.query(getUserDetails, [userID], function(err, result){
+            if(err) reject(err);
+            const userDetails = results[0];
+
+            if(!firstName){firstName = userDetails.firstName;}
+            if(!lastName){lastName = userDetails.lastName;}
+            if(!email){email = userDetails.email;}
+            if(!accessLevel){accessLevel = userDetails.accessLevel;}
+            conn.query(editUser, [firstName, lastName, email, accessLevel, userID], function(err, result){
+                if(err){
+                    resolve({success: false, message: "Unable to edit user" + err.message});
+                }else{
+                    resolve({success: true, message: "User edited successfully"});
+                }
+            });
+        });
+    });
+}
+
+function deleteUser(userID){
+    return new Promise((resolve, reject) => {
+        const deleteUser = "DELETE ZEIT3118.User WHERE employeeID = ?";
+        conn.query(deleteUser, [userID], function(err, result){
+            if(err){
+                resolve({success: false, message: "Unable to delete user" + err.message});
+            }else{
+                resolve({success: true, message: "User deleted successfully"});
+            }
+        });
+    });
+}
