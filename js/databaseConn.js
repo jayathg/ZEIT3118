@@ -56,3 +56,19 @@ function addUser(firstName, lastName, email, accessLevel){
         });
     })
 }
+
+function verifyLogin(userID){
+    return new Promise((resolve, reject) => {
+        const verifyLogin = "SELECT * FROM ZEIT3118.User WHERE employeeID = ?";
+        conn.query(verifyLogin, [userID], function(err, result){
+            if(err){
+                resolve({success: false, message: "Unable to verify login" + err.message});
+            }else if(result.length === 0){
+                resolve({success: false, message: "Invalid UserID"});
+            }else{
+                resolve({success: true, message: "Login verified", user: result[0]});
+            }
+        });
+    })
+}
+
