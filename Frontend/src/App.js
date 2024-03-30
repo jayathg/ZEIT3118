@@ -1,59 +1,46 @@
 import React, { useCallback } from 'react';
-import { AuthProvider, Descope, useDescope, useSession, useUser, getSessionToken } from '@descope/react-sdk';
-import { Route, Switch, useHistory } from 'react-router-dom'; // Import useHistory hook
-import LoggedInPage from './LoggedInPage'; // Import the LoggedInPage component
-import IndexHTML from './components/IndexHTML'; // Import the IndexHTML component
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { useDescope, useSession, useUser, getSessionToken } from '@descope/react-sdk';
+import LandingPage from './landingPage';
+import AuthenticatedComponent from './AuthenticatedComponent';
 
 const App = () => {
     const { isAuthenticated, isSessionLoading } = useSession();
     const { user, isUserLoading } = useUser();
     const { logout } = useDescope();
-    const history = useHistory(); // Initialize useHistory hook
-
-    const exampleFetchCall = async () => {
-        const sessionToken = getSessionToken();
-
-        fetch('http://localhost:3000/data', {
-            headers: {
-                Accept: 'application/json',
-                Authorization: 'Bearer ' + sessionToken,
-            }
-        });
-    };
 
     const handleLogout = useCallback(() => {
         logout();
     }, [logout]);
 
-    const handleSignUpSuccess = useCallback((e) => {
-        console.log('User signed up:', e.detail.user);
-        // Redirect to logged-in page upon successful sign-up
-        history.push('/loggedIn.html');
-    }, [history]);
-
     return (
-        <div>
-            <h1>Sign Up Page</h1>
-            <AuthProvider projectId="P2dhhp4gMs2Mj5dMPCiMTnsQ0sTG">
-                <Switch>
-                    <Route path="/" exact component={IndexHTML} /> {/* Render IndexHTML component */}
-                    <Route path="/loggedIn.html" component={LoggedInPage} /> {/* Route for LoggedInPage component */}
-                </Switch>
-                {!isAuthenticated && (
-                    <Descope
-                        flowId="sign-up"
-                        theme="light"
-                        onSuccess={handleSignUpSuccess}
-                        onError={(err) => {
-                            console.error('Error signing up:', err);
-                            // Optionally, handle error cases
-                        }}
-                    />
+        <Router>
+            <Switch>
+                <Route exact path="/">
+                    {/* Render LandingPage if not authenticated */}
+                    {!isAuthenticated && !isSessionLoading && (
+                        <Descope
+                            flowId="sign-up-or-in"
+                            onSuccess={(e) => console.log(e.detail.user)}
+                            onError={(e) => console.log('Could not log in!')}
+                        />
+                    )}
+                    {/* Redirect to AuthenticatedComponent if authenticated */}
+                    {isAuthenticated && <Redirect to="/authenticated" />}
+                </Route>
+                {/* Render AuthenticatedComponent if authenticated */}
+                {isAuthenticated && (
+                    <Route path="/authenticated">
+                        <>
+                            <p>Hello {user.name}</p>
+                            <div>My Private Component</div>
+                            <button onClick={handleLogout}>Logout</button>
+                        </>
+                    </Route>
                 )}
-            </AuthProvider>
-        </div>
+            </Switch>
+        </Router>
     );
 };
 
 export default App;
-
