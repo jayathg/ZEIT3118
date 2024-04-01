@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { AuthProvider, Descope } from 'descope'; // Importing descope components
+import { AuthProvider, Descope } from '@descope/react-sdk';
+
 
 const LandingPage = () => {
     const [showLoginFlow, setShowLoginFlow] = useState(false);
