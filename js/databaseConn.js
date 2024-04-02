@@ -1,58 +1,165 @@
-const mysql = require('mysql');
+const sql = require('mssql');
 const express = require('express');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
+
 app.use(cors({
     origin: 'http://localhost:3000'
 }));
 
-//Default creds, will need to be changed when we migrate to Azure
-const conn = mysql.createConnection({
-    host: "127.0.0.1",
-    user: "root",
-    password: "password",
-});
+const config = {
+    user: 'webapp',
+    password: '-Q^5vS5;djD.W5/',
+    server: 'techsecuretaskforce.database.windows.net',
+    port: 1433,
+    database: 'zeit3118',
+    authentication: {
+        type: 'default'
+    },
+    options: {
+        encrypt: true
+    }
+}
 
-conn.connect(function(err) {
-    if (err) {
-        console.error('Error connecting: ' + err.stack);
-        return;
-    };
-    createTable();
-    addUser("firstName", "lastName", "bob@gmail.com", true)
-    console.log("Connected!");
-});
+console.log("Starting...");
+connectAndQuery();
 
-function createTable(){
-        const createTables = ["CREATE TABLE IF NOT EXISTS ZEIT3118.User(employeeID INT NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT, firstName NVARCHAR(50), lastName NVARCHAR(50), email NVARCHAR(50) CHECK (email LIKE '%_@_%.__%'), accessLevel BOOL)",
-    "ALTER TABLE ZEIT3118.User AUTO_INCREMENT = 0"];
+async function connectAndQuery() {
+    try {
+        await sql.connect(config);
+        await createTable();
+        await addUser("firstName", "lastName", "bob@gmail.com", true);
+        await sql.close();
+    } catch (err) {
+        console.error(err.message);
+    }
+}
 
-    createTables.forEach((tableQuery) => {
+async function createTable() {
+    const createTables = [
+        `IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'ZEIT3118')
+        BEGIN
+            EXEC('CREATE SCHEMA ZEIT3118');
+        END`,
+
+        `IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'User' AND schema_id = SCHEMA_ID('ZEIT3118'))
+        BEGIN
+            CREATE TABLE ZEIT3118.[User] (
+                employeeID INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+                firstName NVARCHAR(50),
+                lastName NVARCHAR(50),
+                email NVARCHAR(50) CHECK (email LIKE '%_@_%.__%'),
+                accessLevel BIT
+            );
+        END`
+    ];
+
+    for (let tableQuery of createTables) {
         if (tableQuery.trim() !== "") {
-            conn.query(tableQuery, function (err) {
-                if (err) throw err;
-            });
+            await sql.query(tableQuery);
         }
-    });
+    }
 }
 
-function addUser(firstName, lastName, email, accessLevel){
-    return new Promise((resolve, reject) => {
-        const addUser = "INSERT INTO ZEIT3118.User (firstName, lastName, email, accessLevel) VALUES (?, ?, ?, ?)";
-        conn.query(addUser, [firstName, lastName, email, accessLevel], function(err, result){
-            if(err){
-                resolve({success: false,  message: "Unable to add user" + err.message});
-            }else{
-                const getUserID = "SELECT employeeID FROM ZEIT3118.User WHERE firstName = ? AND lastName = ? AND email = ? AND accessLevel = ?";
-                conn.query(getUserID, [firstName, lastName, email, accessLevel], function(err, result){
-                    if(err){
-                        resolve({success: false, message: "Unable to get user ID" + err.message});
-                    }else{
-                        resolve({success: true, message: "User added successfully", userID: result[0].employeeID});
-                    }
-                });
-            }
-        });
-    })
+async function addUser(firstName, lastName, email, accessLevel) {
+    try {
+        const addUserQuery = `INSERT INTO ZEIT3118.[User] (firstName, lastName, email, accessLevel) VALUES (@firstName, @lastName, @email, @accessLevel); SELECT SCOPE_IDENTITY() AS employeeID;`;
+        const request = new sql.Request();
+        request.input('firstName', sql.NVarChar(50), firstName);
+        request.input('lastName', sql.NVarChar(50), lastName);
+        request.input('email', sql.NVarChar(50), email);
+        request.input('accessLevel', sql.Bit, accessLevel);
+        const result = await request.query(addUserQuery);
+        const userID = result.recordset[0].employeeID;
+        console.log("User added successfully with ID: " + userID);
+        return { success: true, message: "User added successfully", userID: userID };
+    } catch (err) {
+        console.error("Unable to add user: " + err.message);
+        return { success: false, message: "Unable to add user: " + err.message };
+    }
 }
+
+
+
+async function verifyLogin(userID) {
+    try {
+        const verifyLogin = `SELECT * FROM ZEIT3118.[User] WHERE employeeID = @userID`;
+        const request = new sql.Request();
+        request.input('userID', sql.Int, userID);
+        const result = await request.query(verifyLogin);
+        if (result.recordset.length === 0) {
+            return { success: false, message: "Invalid UserID" };
+        } else {
+            return { success: true, message: "Login verified", user: result.recordset[0] };
+        }
+    } catch (err) {
+        return { success: false, message: "Unable to verify login: " + err.message };
+    }
+}
+
+async function getUserID(email) {
+    try {
+        const getUserID = `SELECT employeeID FROM ZEIT3118.[User] WHERE email = @email`;
+        const request = new sql.Request();
+        request.input('email', sql.NVarChar(50), email);
+        const result = await request.query(getUserID);
+        if (result.recordset.length === 0) {
+            return { success: false, message: "Invalid email" };
+        } else {
+            return { success: true, message: "User ID found", userID: result.recordset[0].employeeID };
+        }
+    } catch (err) {
+        return { success: false, message: "Unable to get user ID: " + err.message };
+    }
+}
+
+async function editUser(userID, firstName, lastName, email, accessLevel) {
+    try {
+        const request = new sql.Request();
+        request.input('userID', sql.Int, userID);
+
+        const getUserDetails = `SELECT * FROM ZEIT3118.[User] WHERE employeeID = @userID`;
+        const userDetailsResult = await request.query(getUserDetails);
+        if (userDetailsResult.recordset.length === 0) {
+            return { success: false, message: "User not found" };
+        }
+        const userDetails = userDetailsResult.recordset[0];
+        firstName = firstName || userDetails.firstName;
+        lastName = lastName || userDetails.lastName;
+        email = email || userDetails.email;
+        accessLevel = accessLevel !== undefined ? accessLevel : userDetails.accessLevel;
+
+        request.input('firstName', sql.NVarChar(50), firstName);
+        request.input('lastName', sql.NVarChar(50), lastName);
+        request.input('email', sql.NVarChar(50), email);
+        request.input('accessLevel', sql.Bit, accessLevel);
+
+        const editUserQuery = `UPDATE ZEIT3118.[User] SET firstName = @firstName, lastName = @lastName, email = @email, accessLevel = @accessLevel WHERE employeeID = @userID`;
+        await request.query(editUserQuery);
+        return { success: true, message: "User edited successfully" };
+    } catch (err) {
+        return { success: false, message: "Unable to edit user: " + err.message };
+    }
+}
+
+
+async function deleteUser(userID) {
+    try {
+        const deleteUserQuery = `DELETE FROM ZEIT3118.[User] WHERE employeeID = @userID`;
+        const request = new sql.Request();
+        request.input('userID', sql.Int, userID);
+        await request.query(deleteUserQuery);
+        return { success: true, message: "User deleted successfully" };
+    } catch (err) {
+        return { success: false, message: "Unable to delete user: " + err.message };
+    }
+}
+
+module.exports = {
+    addUser,
+    verifyLogin,
+    getUserID,
+    editUser,
+    deleteUser
+};
