@@ -15,7 +15,7 @@ function login(userID) {
     })
     .then(data => {
         if(data && data.success) {
-            magicLink(userID);
+            magicLink(data[0].email);
         }else {
             alert("Invalid userID")
         }
@@ -27,6 +27,6 @@ function login(userID) {
 }
 
 // To be implemented by Kiara
-function magicLink(userID) {
+function magicLink(userEmail) {
     
 }
