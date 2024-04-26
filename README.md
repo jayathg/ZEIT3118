@@ -5,6 +5,7 @@ Passwords without keyboards – authentication for the Web
 ## Requirements
 - NodeJS
 - MySQL
+- Auth0
 
 ## Getting Started
 
@@ -42,4 +43,8 @@ node js\databaseConn.js
 MacOS
 ```
 node js/databaseConn.js
+```
+Auth0 config, run 
+```
+npm install express express-openid-connect --save
 ```
