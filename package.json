@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.18.3",
+    "express": "^4.19.2",
+    "express-openid-connect": "^2.17.1",
     "mssql": "^10.0.2",
     "mysql": "^2.18.1"
   },
@@ -13,6 +14,14 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Tech Sec TaskForce",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayathg/ZEIT3118.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jayathg/ZEIT3118/issues"
+  },
+  "homepage": "https://github.com/jayathg/ZEIT3118#readme"
 }
