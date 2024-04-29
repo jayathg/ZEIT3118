@@ -1,0 +1,37 @@
+.number-pad-container {
+    display: grid;
+    place-items: center;
+    gap: 10px;
+  }
+  
+  .number-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  
+  .number-pad button {
+    padding: 10px;
+    font-size: 16px;
+    width: 50px;
+  }
+  
+  .input-box {
+    width: 200px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .submit-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .submit-button:hover {
+    background-color: #0056b3;
+  }
+  

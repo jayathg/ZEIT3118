@@ -1,18 +1,43 @@
 {
+  "name": "my-react-app",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.18.3",
-    "mssql": "^10.0.2",
-    "mysql": "^2.18.1"
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "bootstrap": "^5.3.3",
+    "nth-check": "^2.1.1",
+    "postcss": "^8.4.38",
+    "react": "^18.3.0",
+    "react-bootstrap": "^2.10.2",
+    "react-dom": "^18.3.0",
+    "react-router-dom": "^6.23.0",
+    "react-scripts": "^5.0.1",
+    "web-vitals": "^2.1.4"
   },
-  "name": "zeit3118-1",
-  "description": "ZEIT3118 Group 5 Passwords without keyboards – authentication for the Web",
-  "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
