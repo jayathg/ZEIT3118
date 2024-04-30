@@ -2,13 +2,13 @@ import './App.css';
 import React from 'react';
 import ReactDOM from 'react-dom'; // Import ReactDOM
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Login from './Components/Login';
-import HomeAdminPage from './Components/HomeAdminPage';
-import NotFoundPage from './Components/NotFoundPage';
-import AddPage from './Components/AddPage';
-import DeletePage from './Components/DeletePage';
-import EditPage from './Components/EditPage';
-import SearchPage from './Components/SearchPageEdit';
+import Login from './LoginFrontEnd';
+import HomeAdminPage from './HomeAdminPage';
+import NotFoundPage from './NotFoundPage';
+import AddPage from './AddPage';
+import DeletePage from './DeletePage';
+import EditPage from './EditPage';
+import SearchPage from './SearchPageEdit';
 
 const router = createBrowserRouter([
   {
