@@ -3,8 +3,8 @@ const databaseConn = require("./databaseConn.js"); // Import database connection
 const request = require("request");
 //AUTH0 DOMAIN <NAND PRIVATE, NEED TO MOVE TO COLLAB ONE)
 const domain = 'dev-we3vguqrc7tyu1mr.us.auth0.com';
-// Your Client ID
-const clientId = 'xqVy4iVU7SHlzNXBckuHv1oJPanFmXtJ';
+//CLient ID from default app
+const clientId = 'slRxfK7ubFbbQ4P9VdGb1pZZ8XE1brAb';
 // Your Management API token (replace this with your actual token)
 const managementApiToken = getManagementApiToken();
 
@@ -14,7 +14,7 @@ async function getManagementApiToken() {
         method: 'POST',
         url: 'https://dev-we3vguqrc7tyu1mr.us.auth0.com/oauth/token',
         headers: { 'content-type': 'application/json' },
-        body: '{"client_id":"qqCsDQdJujEK19DYBwTADzyPHkaqhxiL","client_secret":"sVkGEeDXKaFzaD9GXTb7ZM7rvHuExGV1fW7lJON3HmY_J12qRlW2_XAq9Gs1_7CT","audience":"https://dev-we3vguqrc7tyu1mr.us.auth0.com/api/v2/","grant_type":"client_credentials"}'
+        body: '{"client_id":"slRxfK7ubFbbQ4P9VdGb1pZZ8XE1brAb","client_secret":"xCqnvvrBCzM9Z-FQ00g4UMuilMslg2F1Jf9Zgc2z3KhKLNGJ7OjJ4HwWmkwfDUPA","audience":"https://dev-we3vguqrc7tyu1mr.us.auth0.com/api/v2/","grant_type":"client_credentials"}'
       };
   
       request(options, function (error, response, body) {

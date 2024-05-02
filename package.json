@@ -11,7 +11,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "Tech Sec TaskForce",
@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/jayathg/ZEIT3118/issues"
   },
-  "homepage": "https://github.com/jayathg/ZEIT3118#readme"
+  "homepage": "https://github.com/jayathg/ZEIT3118#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }
