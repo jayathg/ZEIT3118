@@ -6,6 +6,7 @@ Passwords without keyboards – authentication for the Web
 - NodeJS
 - MySQL
 - Auth0
+-Jest
 
 ## Getting Started
 
@@ -43,6 +44,12 @@ node js\databaseConn.js
 MacOS
 ```
 node js/databaseConn.js
+```
+
+##Running unit tests 
+
+```
+npm install -g jest
 ```
 Auth0 config, run 
 ```
