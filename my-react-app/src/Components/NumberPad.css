@@ -1,12 +1,19 @@
 .number-pad-container {
-  position: relative; /* Allows for absolute positioning of the logo */
+  background: repeating-linear-gradient(
+    45deg,
+    #606dbc,
+    #606dbc 10px,
+    #465298 10px,
+    #465298 20px
+  );
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh; /* Ensures the container fills at least the full height of the viewport */
-  background-color: #f4f4f9; /* Light grey background for the whole page */
+  min-height: 100vh;
+  position: relative;
 }
+
 
 .number-pad {
   background-color: #ffffff; /* White background for the number pad */
@@ -47,35 +54,35 @@
   background-color: #0056b3; /* Darker blue on hover */
   box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Larger shadow on hover for a "lifted" effect */
 }
-
-.submit-button-container {
-  margin-top: 20px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
+
 .submit-button {
-  padding: 20px 40px; /* Increased padding for a larger button */
-  font-size: 20px; /* Larger font size for better visibility */
-  color: white; /* White text for contrast */
-  border-radius: 12px; /* More pronounced rounded corners */
-  border: none; /* No border for a cleaner look */
-  cursor: pointer; /* Pointer cursor on hover */
-  background-image: linear-gradient(45deg, #ff416c, #ff4b2b); /* Gradient from pink to orange */
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Larger shadow for more depth */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for interactive effects */
+  padding: 20px 40px; /* Existing padding */
+  font-size: 20px; /* Existing font size */
+  color: white; /* Text color */
+  border-radius: 12px; /* Existing border radius */
+  border: none; /* No border */
+  cursor: pointer; /* Cursor on hover */
+  background: linear-gradient(45deg, #ff416c, #ff4b2b, #ff758c, #ff7eb3); /* Multiple color gradient */
+  background-size: 600% 600%; /* Large enough to contain the full gradient */
+  animation: gradientBG 15s ease infinite; /* Applying the animation */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Existing shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Existing transitions */
 }
 
 .submit-button:hover, .submit-button:focus {
-  transform: scale(1.05); /* Slightly scale up the button on hover/focus */
-  box-shadow: 0 12px 24px rgba(0,0,0,0.25); /* Increased shadow on hover for a "lifted" effect */
-  background-image: linear-gradient(45deg, #ff758c, #ff7eb3); /* Lighter gradient on hover for attention */
-  outline: none; /* Remove outline to maintain the design */
+  transform: scale(1.05); /* Scale up on hover/focus */
+  box-shadow: 0 12px 24px rgba(0,0,0,0.25); /* Increased shadow on hover */
+  outline: none; /* Remove outline */
 }
 
 .submit-button:active {
-  background-image: linear-gradient(45deg, #e63250, #e64820); /* Darker gradient when button is clicked */
+  background: linear-gradient(45deg, #e63250, #e64820); /* Darker gradient when button is clicked */
   box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Smaller shadow to simulate "pressing" the button */
   transform: scale(0.98); /* Scale down slightly to simulate a press effect */
 }
