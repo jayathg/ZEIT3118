@@ -1,4 +1,4 @@
-import { getManagementApiToken } from 'C:\\Users\\Chip\\Auth03118\\ZEIT3118\\js\\login.js'; // Update the path to your login.js file
+import { getManagementApiToken } from '../../my-react-app/src/Components/Login.js'; // Update the path to your login.js file
 
 test('getManagementApiToken function should return a valid token', async () => {
     // Act
