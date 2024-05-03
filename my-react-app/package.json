@@ -14,8 +14,8 @@
     "react-dom": "^18.3.0",
     "react-router-dom": "^6.23.0",
     "react-scripts": "^5.0.1",
-    "web-vitals": "^2.1.4",
-    "express": "^4.18.3"
+    "web-vitals": "^2.1.4"
+    
   },
   "scripts": {
     "start": "react-scripts start",
@@ -49,7 +49,7 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jayathg/ZEIT3118/issues"
-  },
-  "homepage": "https://github.com/jayathg/ZEIT3118#readme",
+  }
+  
   
 }
