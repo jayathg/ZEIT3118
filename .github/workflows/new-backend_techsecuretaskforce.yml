@@ -20,7 +20,9 @@ jobs:
 
       - name: Install dependencies and build
         run: |
+          ls
           cd my-react-app/
+          ls
           npm install
           npm run build --if-present
         
