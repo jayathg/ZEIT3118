@@ -7,7 +7,6 @@ async function getEmailFromUserID(userID) {
         if (emailResult.success) {
             return emailResult.email;
         } else {
-            // If no email is found for the provided user ID, throw an error
             throw new Error(emailResult.message);
         }
     } catch (error) {
@@ -18,15 +17,15 @@ async function getEmailFromUserID(userID) {
 
 async function sendMagicLink(email) {
     try {
-        const options = {
+        var options = {
             method: 'POST',
             url: 'https://dev-we3vguqrc7tyu1mr.us.auth0.com/passwordless/start',
             headers: {'content-type': 'application/json'},
             data: {
-                client_id: 'hoOItk2NH5DGxQDSaxiGcXiH48rlcGh3',
-                connection: 'email',
-                email: email,
-                send: 'link'
+              client_id: '1nzOnOcVNNFCtzB7CxXV87MpTL6IGb97',
+              connection: 'email',
+              email: 'USER_EMAIL',
+              send: 'link'
             }
         };
 
