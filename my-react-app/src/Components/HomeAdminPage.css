@@ -8,10 +8,10 @@ body {
 /* Logo styling */
 .company-logo {
     position: absolute; /* Absolute positioning for the logo */
-    max-width: 3350px; /* Adjust this value based on your design needs */
+    max-width: 350px; /* Adjust this value based on your design needs */
     height: auto; /* Maintain aspect ratio */
     left: 5px; /* Margin area the logo horizontally and adds margin */
-    top: 50px; /* Margin area the logo vertically and adds margin */
+    top: 100px; /* Margin area the logo vertically and adds margin */
   }
 /* Navbar specific styling */
 nav {
