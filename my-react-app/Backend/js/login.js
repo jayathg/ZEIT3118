@@ -4,7 +4,6 @@ const databaseConn = require("./databaseConn.js");
 async function getEmailFromUserID(userID) {
     try {
         const emailResult = await databaseConn.verifyLogin(userID);
-        console.log(emailResult)
         if (emailResult.success) {
             return emailResult.email;
         } else {
@@ -54,7 +53,6 @@ async function testLogin() {
     console.log("Getting email for userID:", userID);
     try {
         const email = await getEmailFromUserID(userID);
-        console.log(email)
         console.log("Email retrieved:", email);
     } catch (error) {
         console.error("Error retrieving email:", error.message);

@@ -111,7 +111,6 @@ async function getUserID(email) {
         request.input('email', sql.NVarChar(50), email);
         const result = await request.query(getUserID);
         if (result.recordset.length === 0) {
-            console.log(result)
             return { success: false, message: "Invalid email" };
         } else {
             await sql.close();
