@@ -9,7 +9,6 @@ function BottomNavbar() {
 
     return (
         <nav className="bottom-navbar">
-            <img src="/logo.png" alt="Company Logo" className="navbar-logo" />
             <button onClick={goBack}>Back</button>
         </nav>
     )
