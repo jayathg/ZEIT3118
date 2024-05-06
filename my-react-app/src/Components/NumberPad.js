@@ -1,5 +1,7 @@
 import React from 'react';
 import './NumberPad.css'; // Import your CSS file for styling
+import { useNavigate } from 'react-router-dom';
+
 
 function NumberPad() {
   const handleNumberClick = (number) => {
@@ -7,8 +9,10 @@ function NumberPad() {
     console.log('Clicked number:', number);
   };
 
+  const navigate = useNavigate();
+
   const navigateToHomeAdminPage = () => {
-    window.location.href = '/HomeAdminPage';
+    navigate('/HomeAdminPage');
   };
 
   return (
