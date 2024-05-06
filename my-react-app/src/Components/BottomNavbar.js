@@ -1,16 +1,16 @@
-// BottomNavbar.jsx
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
-import './BottomNavbar.css';
+import { Link } from 'react-router-dom';
+import './BottomNavbar.css' // Import the dedicated CSS file for styling
 
 function BottomNavbar() {
     const goBack = () => {
-        window.history.back(); // Go back to the previous page
+        window.history.back();
     };
 
     return (
         <nav className="bottom-navbar">
-            <button onClick={goBack}>Back</button> {/* Button to go back */}
+            <img src="/logo.png" alt="Company Logo" className="navbar-logo" />
+            <button onClick={goBack}>Back</button>
         </nav>
     )
 }

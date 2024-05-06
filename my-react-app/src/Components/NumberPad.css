@@ -1,3 +1,11 @@
+/* Resets padding and margin for all elements to remove unwanted spaces */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Ensures the body takes full height of the viewport */
+  width: 100%; /* Ensures the body takes full width of the viewport */
+  overflow: hidden; /* Prevents scrolling */
+}
 .number-pad-container {
   background: repeating-linear-gradient(
     45deg,
@@ -10,13 +18,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  position: relative;
+  height: 100vh; /* Full height of the viewport */
+  width: 100vw; /* Full width of the viewport */
+  position: absolute; /* Ensures it covers the whole viewport */
+  top: 0;
+  left: 0;
 }
-
-
 .number-pad {
-  background-color: #ffffff; /* White background for the number pad */
+  background-color: #ffffff; /* Maintains white background */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -34,7 +43,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Three buttons per row */
   gap: 10px; /* Spacing between buttons */
-  max-width: 240px; /* Controls the overall width of the number pad */
+  max-width: 300px; /* Controls the overall width of the number pad */
 }
 
 .number-pad button {
