@@ -12,12 +12,11 @@ import SearchPage from './Components/SearchPageEdit';
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: React.createElement(Login),
+    element: <Login />,
   },
   {
     path: '/HomeAdminPage',
-    element: React.createElement(HomeAdminPage),
+    element: <HomeAdminPage />,
   },
   {
     path: '/AddPage',
