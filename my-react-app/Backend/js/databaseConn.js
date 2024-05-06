@@ -23,14 +23,14 @@ const config = {
 }
 
 console.log("Starting...");
-connectAndQuery();
-
-async function connectAndQuery() {
+connectDB();
+async function connectDB() {
     try {
         await sql.connect(config);
         await createTable();
-        await addUser("firstName", "lastName", "bob@gmail.com", true);
-        await sql.close();
+        
+        //await addUser("firstName", "lastName", "bob@gmail.com", true);
+        
     } catch (err) {
         console.error(err.message);
     }
@@ -64,6 +64,8 @@ async function createTable() {
 
 async function addUser(firstName, lastName, email, accessLevel) {
     try {
+        await sql.connect(config);
+
         const addUserQuery = `INSERT INTO ZEIT3118.[User] (firstName, lastName, email, accessLevel) VALUES (@firstName, @lastName, @email, @accessLevel); SELECT SCOPE_IDENTITY() AS employeeID;`;
         const request = new sql.Request();
         request.input('firstName', sql.NVarChar(50), firstName);
@@ -84,6 +86,8 @@ async function addUser(firstName, lastName, email, accessLevel) {
 
 async function verifyLogin(userID) {
     try {
+        await sql.connect(config);
+
         const verifyLogin = `SELECT * FROM ZEIT3118.[User] WHERE employeeID = @userID`;
         const request = new sql.Request();
         request.input('userID', sql.Int, userID);
@@ -91,7 +95,7 @@ async function verifyLogin(userID) {
         if (result.recordset.length === 0) {
             return { success: false, message: "Invalid UserID" };
         } else {
-            return { success: true, message: "Login verified", user: result.recordset[0] };
+            return { success: true, message: "Login verified", user:result.recordset.employeeID, email: result.recordset[0].email };
         }
     } catch (err) {
         return { success: false, message: "Unable to verify login: " + err.message };
@@ -100,13 +104,17 @@ async function verifyLogin(userID) {
 
 async function getUserID(email) {
     try {
+        await sql.connect(config);
+
         const getUserID = `SELECT employeeID FROM ZEIT3118.[User] WHERE email = @email`;
         const request = new sql.Request();
         request.input('email', sql.NVarChar(50), email);
         const result = await request.query(getUserID);
         if (result.recordset.length === 0) {
+            console.log(result)
             return { success: false, message: "Invalid email" };
         } else {
+            await sql.close();
             return { success: true, message: "User ID found", userID: result.recordset[0].employeeID };
         }
     } catch (err) {
@@ -116,6 +124,8 @@ async function getUserID(email) {
 
 async function editUser(userID, firstName, lastName, email, accessLevel) {
     try {
+        await sql.connect(config);
+
         const request = new sql.Request();
         request.input('userID', sql.Int, userID);
 

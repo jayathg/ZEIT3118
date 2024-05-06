@@ -3,7 +3,8 @@ const databaseConn = require("./databaseConn.js");
 
 async function getEmailFromUserID(userID) {
     try {
-        const emailResult = await databaseConn.getUserID(userID);
+        const emailResult = await databaseConn.verifyLogin(userID);
+        console.log(emailResult)
         if (emailResult.success) {
             return emailResult.email;
         } else {
@@ -48,7 +49,19 @@ async function handleLogin(userID) {
     }
 }
 
-// Example usage
-const userID = '2';
-console.log(getEmailFromUserID(userID));
-handleLogin(userID);
+async function testLogin() {
+    const userID = '2';
+    console.log("Getting email for userID:", userID);
+    try {
+        const email = await getEmailFromUserID(userID);
+        console.log(email)
+        console.log("Email retrieved:", email);
+    } catch (error) {
+        console.error("Error retrieving email:", error.message);
+    }
+    
+    console.log("Handling login...");
+    
+}
+
+testLogin();
