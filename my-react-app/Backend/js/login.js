@@ -1,93 +1,29 @@
 const axios = require("axios").default;
-const databaseConn = require("./databaseConn.js"); // Import database connection module
-const request = require("request");
-//AUTH0 DOMAIN <NAND PRIVATE, NEED TO MOVE TO COLLAB ONE)
-const domain = 'dev-we3vguqrc7tyu1mr.us.auth0.com';
-//CLient ID from default app
-const clientId = 'slRxfK7ubFbbQ4P9VdGb1pZZ8XE1brAb';
-// Your Management API token (replace this with your actual token)
-const managementApiToken = getManagementApiToken();
+const databaseConn = require("./databaseConn.js");
 
-async function getManagementApiToken() {
-    return new Promise((resolve, reject) => {
-      const options = {
-        method: 'POST',
-        url: 'https://dev-we3vguqrc7tyu1mr.us.auth0.com/oauth/token',
-        headers: { 'content-type': 'application/json' },
-        body: '{"client_id":"slRxfK7ubFbbQ4P9VdGb1pZZ8XE1brAb","client_secret":"xCqnvvrBCzM9Z-FQ00g4UMuilMslg2F1Jf9Zgc2z3KhKLNGJ7OjJ4HwWmkwfDUPA","audience":"https://dev-we3vguqrc7tyu1mr.us.auth0.com/api/v2/","grant_type":"client_credentials"}'
-      };
-  
-      request(options, function (error, response, body) {
-        if (error) {
-          console.error("Error obtaining management API token:", error);
-          reject(error);
-        } else {
-          const responseBody = JSON.parse(body);
-          const token = responseBody.access_token;
-          resolve(token);
-        }
-      });
-    });
-  }
-
-document.getElementById('login').addEventListener('submit', async function(event) {
-    event.preventDefault();
-    const userID = document.getElementById('userID').value;
+async function getEmailFromUserID(userID) {
     try {
-        // Retrieve email associated with the user ID
         const emailResult = await databaseConn.getUserID(userID);
         if (emailResult.success) {
-            const email = emailResult.email;
-            await login(email);
+            return emailResult.email;
         } else {
-            // If no email is found for the provided user ID, show an error message
-            alert(emailResult.message);
+            // If no email is found for the provided user ID, throw an error
+            throw new Error(emailResult.message);
         }
     } catch (error) {
-        // Handle any errors that occur during database query
-        console.error("Error:", error.message);
-        alert("An error occurred during login");
-    }
-});
-
-async function login(email) {
-    try {
-        const response = await fetch('http://localhost:3000/login', {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email })
-        });
-        const data = await response.json();
-        
-        // Check if the response indicates a successful login
-        if (data && data.success) {
-            // Call the magicLink function with the user ID
-            magicLink(data.userID);
-        } else {
-            // Show an alert for invalid login
-            alert("Invalid login credentials");
-        }
-    } catch (err) {
-        // Handle errors
-        alert("An error occurred during login " + err.message);
+        // Handle any errors
+        throw new Error("Error retrieving email from userID: " + error.message);
     }
 }
 
-// Function to send magic link
-async function magicLink(email) {
+async function sendMagicLink(email) {
     try {
         const options = {
             method: 'POST',
-            url: `https://${domain}/api/v2/passwordless/start`,
-            headers: {
-                'content-type': 'application/json',
-                'Authorization': `Bearer ${managementApiToken}`
-            },
+            url: 'https://dev-we3vguqrc7tyu1mr.us.auth0.com/passwordless/start',
+            headers: {'content-type': 'application/json'},
             data: {
-                client_id: clientId,
+                client_id: 'hoOItk2NH5DGxQDSaxiGcXiH48rlcGh3',
                 connection: 'email',
                 email: email,
                 send: 'link'
@@ -99,8 +35,21 @@ async function magicLink(email) {
         // Handle response data as needed
     } catch (error) {
         console.error(error);
-        alert("An error occurred while sending magic link: " + error.message);
+        // Handle errors
     }
 }
 
+async function handleLogin(userID) {
+    try {
+        const email = await getEmailFromUserID(userID);
+        await sendMagicLink(email);
+    } catch (error) {
+        console.error("Error:", error.message);
+        // Handle any errors
+    }
+}
 
+// Example usage
+const userID = '2';
+console.log(getEmailFromUserID(userID));
+handleLogin(userID);
