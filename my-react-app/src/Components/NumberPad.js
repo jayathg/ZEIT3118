@@ -1,5 +1,5 @@
 import React from 'react';
-import './NumberPad.css'; // Import CSS file for styling
+import './NumberPad.css'; // Import the CSS file
 
 function NumberPad() {
   const handleNumberClick = (number) => {
