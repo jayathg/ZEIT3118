@@ -51,4 +51,4 @@ async function handleLogin(userID) {
 // Example usage
 const userID = '2';
 console.log(getEmailFromUserID(userID));
-handleLogin("chippledipple@proton.me");
+handleLogin(userID);
