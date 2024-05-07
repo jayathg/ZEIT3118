@@ -1,32 +1,36 @@
+// NumberPad.js
 import React from 'react';
-import './NumberPad.css'; // Import your CSS file for styling
+import './NumberPad.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function NumberPad() {
-  const handleNumberClick = (number) => {
-    // Handle number click logic here
-    console.log('Clicked number:', number);
-  };
-
+  let employeeID = "";
   const navigate = useNavigate();
 
-  const navigateToHomeAdminPage = () => {
-    navigate('/HomeAdminPage'); 
+  const handleNumberClick = (number) => {
+    employeeID += number;
+    console.log("Employee ID: ", employeeID)
   };
+
+  const navigateToHomeAdminPage = async () => {
+    try {
+      const response = await axios.post('http://localhost:3000/login', { userID: employeeID });
+      console.log("Login response:", response.data);
+      //navigate('/HomeAdminPage'); // Adjust route as necessary
+    } catch (error) {
+      console.error("Login failed:", error.response ? error.response.data.error : error.message);
+    }
+  };
+  
 
   return (
     <div className="number-pad-container">
-      <div className="number-pad">
-        <h1>Enter Your PIN</h1>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map(number => (
-          <button key={number} onClick={() => handleNumberClick(number)}>
-            {number}
-          </button>
-        ))}
-      </div>
-      <div className="submit-button-container">
-        <button onClick={navigateToHomeAdminPage}>Go to Home Admin Page</button>
-      </div>
+      <h1>Enter Your PIN</h1>
+      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map(number => (
+        <button key={number} onClick={() => handleNumberClick(number)}>{number}</button>
+      ))}
+      <button onClick={navigateToHomeAdminPage}>Go to Home Admin Page</button>
     </div>
   );
 }
