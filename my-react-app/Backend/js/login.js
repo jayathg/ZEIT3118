@@ -1,5 +1,7 @@
 const axios = require("axios").default;
+const { redirect } = require("react-router-dom");
 const databaseConn = require("./databaseConn.js");
+
 
 async function getEmailFromUserID(userID) {
     try {
@@ -23,10 +25,15 @@ async function sendMagicLink(email) {
             headers: {'content-type': 'application/json'},
             data: {
               client_id: '1nzOnOcVNNFCtzB7CxXV87MpTL6IGb97',
+              client_secret: '-fumUNmMgoiPjVDC7dOo7rtMT-kM7QDkosQvDUdCxai5CfBYhASFEsv64R7R4FCO',
               connection: 'email',
-              email: 'USER_EMAIL',
-              send: 'link'
+              email: (email),
+              send: 'link',
+              authParams: {
+                redirect_uri: 'https://techsecuretaskforce.azurewebsites.net/HomeAdminPage'
+                }
             }
+            
         };
 
         const response = await axios.request(options);
@@ -58,8 +65,9 @@ async function testLogin() {
         console.error("Error retrieving email:", error.message);
     }
     
-    console.log("Handling login...");
+    //console.log("Handling login...");
     
 }
 
 testLogin();
+handleLogin('2')
