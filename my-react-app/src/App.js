@@ -1,7 +1,6 @@
-import './App.css';
 import React from 'react';
-import ReactDOM from 'react-dom'; // Import ReactDOM
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import BrowserRouter, Routes, and Route
 import Login from './Components/Login';
 import HomeAdminPage from './Components/HomeAdminPage';
 import NotFoundPage from './Components/NotFoundPage';
@@ -10,49 +9,23 @@ import DeletePage from './Components/DeletePage';
 import EditPage from './Components/EditPage';
 import SearchPage from './Components/SearchPageEdit';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: React.createElement(Login),
-  },
-  {
-    path: '/HomeAdminPage',
-    element: React.createElement(HomeAdminPage),
-  },
-  {
-    path: '/AddPage',
-    element: React.createElement(AddPage),
-  },
-  {
-    path: '/DeletePage',
-    element: React.createElement(DeletePage),
-  },
-  {
-    path: '/EditPage',
-    element: React.createElement(EditPage),
-  },
-  {
-    path: '/SearchPage',
-    element: React.createElement(SearchPage),
-  },
-  {
-    path: '*',  
-    element: React.createElement(NotFoundPage),
-  }
-]);
-
-const App = () => { // Define App component
+const App = () => {
   return (
-    <React.StrictMode>
-      <RouterProvider router={router} />
-    </React.StrictMode>
+    <Router> {/* Wrap everything in Router */}
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/HomeAdminPage" element={<HomeAdminPage />} />
+        <Route path="/AddPage" element={<AddPage />} />
+        <Route path="/DeletePage" element={<DeletePage />} />
+        <Route path="/EditPage" element={<EditPage />} />
+        <Route path="/SearchPage" element={<SearchPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Router>
   );
 };
 
 const rootElement = document.getElementById('root');
-const root = ReactDOM.createRoot(rootElement);
-root.render(
-  <App /> // Render the App component
-);
+ReactDOM.render(<App />, rootElement);
 
 export default App;
