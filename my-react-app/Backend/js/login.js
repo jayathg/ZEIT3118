@@ -48,7 +48,18 @@ async function handleLogin(userID) {
     }
 }
 
-// Example usage
-const userID = '2';
-console.log(getEmailFromUserID(userID));
-handleLogin(userID);
+async function testLogin() {
+    const userID = '2';
+    console.log("Getting email for userID:", userID);
+    try {
+        const email = await getEmailFromUserID(userID);
+        console.log("Email retrieved:", email);
+    } catch (error) {
+        console.error("Error retrieving email:", error.message);
+    }
+    
+    console.log("Handling login...");
+    
+}
+
+testLogin();
