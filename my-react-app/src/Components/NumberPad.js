@@ -1,4 +1,3 @@
-// NumberPad.js
 import React from 'react';
 import './NumberPad.css';
 import axios from 'axios';
