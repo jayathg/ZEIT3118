@@ -1,5 +1,6 @@
 const axios = require("axios").default;
 const databaseConn = require("./databaseConn.js");
+require('dotenv').config();
 
 
 async function getEmailFromUserID(userID) {
@@ -23,8 +24,8 @@ async function sendMagicLink(email) {
             url: 'https://dev-we3vguqrc7tyu1mr.us.auth0.com/passwordless/start',
             headers: {'content-type': 'application/json'},
             data: {
-              client_id: '1nzOnOcVNNFCtzB7CxXV87MpTL6IGb97',
-              client_secret: '-fumUNmMgoiPjVDC7dOo7rtMT-kM7QDkosQvDUdCxai5CfBYhASFEsv64R7R4FCO',
+              client_id: process.env.CLIENT_ID,
+              client_secret: process.env.CLIENT_SECRET,
               connection: 'email',
               email: (email),
               send: 'link',
@@ -45,8 +46,11 @@ async function sendMagicLink(email) {
 }
 
 async function handleLogin(userID) {
+    console.log("Handling login...")
     try {
+        console.log(userID)
         const email = await getEmailFromUserID(userID);
+        console.log(email)
         await sendMagicLink(email);
     } catch (error) {
         console.error("Error:", error.message);

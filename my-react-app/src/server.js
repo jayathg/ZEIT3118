@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { handleLogin } = require('./handleLogin.js');
+const { handleLogin } = require('./Components/handleLogin');
 
 const app = express();
 
@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 
 app.post('/login', async (req, res) => {
   try {
+    console.log(req.body);
     const userID = req.body.userID;
     const result = await handleLogin(userID);
     res.send(result);
@@ -20,7 +21,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

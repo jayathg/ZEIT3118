@@ -29,7 +29,7 @@ async function connectDB() {
         await sql.connect(config);
         await createTable();
         
-        //await addUser("firstName", "lastName", "bob@gmail.com", true);
+        await addUser("Jayath", "Gunawardena", "jayathg1@gmail.com", true);
         
     } catch (err) {
         console.error(err.message);
