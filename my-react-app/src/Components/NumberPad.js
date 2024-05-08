@@ -2,7 +2,6 @@
 import React from 'react';
 import './NumberPad.css';
 import axios from 'axios';
-require('dotenv').config();
 
 
 function NumberPad() {
