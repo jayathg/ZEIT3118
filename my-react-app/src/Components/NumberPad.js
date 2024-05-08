@@ -1,7 +1,6 @@
 // NumberPad.js
 import React from 'react';
 import './NumberPad.css';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function NumberPad() {
