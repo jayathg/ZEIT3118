@@ -6,7 +6,6 @@ import axios from 'axios';
 
 function NumberPad() {
   let employeeID = "";
-  const navigate = useNavigate();
 
   const handleNumberClick = (number) => {
     employeeID += number;
