@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import BrowserRouter, Routes, and Route
+import HomeAdminPage from './Components/HomeAdminPage';
 import Login from './Components/Login';
 import NotFoundPage from './Components/NotFoundPage';
 import AddPage from './Components/AddPage';
@@ -14,6 +15,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/AddPage" element={<AddPage />} />
+        <Route path="/HomeAdminPage" element={<HomeAdminPage />} />
         <Route path="/DeletePage" element={<DeletePage />} />
         <Route path="/EditPage" element={<EditPage />} />
         <Route path="/SearchPage" element={<SearchPage />} />
