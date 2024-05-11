@@ -6,8 +6,7 @@ import HomeAdminPage from './Components/HomeAdminPage';
 import NotFoundPage from './Components/NotFoundPage';
 import AddPage from './Components/AddPage';
 import DeletePage from './Components/DeletePage';
-imp
-ort EditPage from './Components/EditPage';
+import EditPage from './Components/EditPage';
 import SearchPage from './Components/SearchPageEdit';
 
 const App = () => {
