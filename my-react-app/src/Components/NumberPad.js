@@ -14,7 +14,7 @@ function NumberPad() {
   const navigateToHomeAdminPage = async () => {
     console.log("Navigating to Home Admin Page")
     try {
-      const response = await axios.post(`https://131.236.129.19:3001/login`, { userID: employeeID });
+      const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/login`, { userID: employeeID });
       console.log("Login response:", response.data);
       //navigate('/HomeAdminPage'); // Adjust route as necessary
     } catch (error) {
