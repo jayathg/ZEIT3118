@@ -1,37 +1,118 @@
 .number-pad-container {
-    display: grid;
-    place-items: center;
-    gap: 10px;
-  }
-  
-  .number-pad {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  }
-  
-  .number-pad button {
-    padding: 10px;
-    font-size: 16px;
-    width: 50px;
-  }
-  
-  .input-box {
-    width: 200px;
-    padding: 10px;
-    font-size: 16px;
-  }
-  
-  .submit-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .submit-button:hover {
-    background-color: #0056b3;
-  }
-  
+
+  background: repeating-linear-gradient(
+    45deg,
+    #606dbc,
+    #606dbc 10px,
+    #465298 10px,
+    #465298 20px
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Full height of the viewport */
+  width: 100vw; /* Full width of the viewport */
+  position: absolute; /* Ensures it covers the whole viewport */
+  top: 0;
+  left: 0;
+}
+.number-pad {
+  background-color: #ffffff; /* Maintains white background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: auto;
+  text-align: center;
+}
+
+.number-pad h1 {
+  margin-bottom: 20px; /* Adds space between the heading and the button grid */
+  color: #333; /* Dark grey color for text */
+  font-size: 24px; /* Increased font size for better visibility */
+}
+
+.buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three buttons per row */
+  gap: 10px; /* Spacing between buttons */
+  max-width: 300px; /* Controls the overall width of the number pad */
+}
+
+.number-pad button {
+  padding: 15px 0; /* Padding top and bottom, 0 left and right */
+  font-size: 18px; /* Larger font size for better readability */
+  border: none;
+  border-radius: 8px; /* Rounded corners for the buttons */
+  background-color: #007bff; /* Primary blue background for buttons */
+  color: white; /* White text color */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+  transition: background-color 0.2s, box-shadow 0.2s; /* Smooth transition for hover effects */
+  width: 70px; /* Wider button width */
+  height: 70px; /* Square shape for the buttons */
+}
+
+.number-pad button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Larger shadow on hover for a "lifted" effect */
+}
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+/* Style for the PIN display area */
+.pin-display {
+  font-size: 24px; /* Large font size for visibility */
+  color: #333; /* Dark grey color for text */
+  margin: 10px 0 20px; /* Spacing around the display area */
+  padding: 10px 20px;
+  background-color: #fff; /* White background for contrast */
+  border-radius: 5px; /* Rounded corners */
+  width: 300px; /* Set width */
+  text-align: center; /* Center text */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+}
+.delete-button {
+  background-color: #ff6347; /* Tomato red for the delete button */
+  color: white;
+  transition: background-color 0.2s, box-shadow 0.2s; /* Smooth transition for hover effects */
+}
+
+.delete-button:hover {
+  background-color: #e52f1b; /* Darker red on hover */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Larger shadow on hover for a "lifted" effect */
+}
+
+.submit-button {
+  padding: 20px 40px; /* Existing padding */
+  font-size: 20px; /* Existing font size */
+  color: white; /* Text color */
+  border-radius: 12px; /* Existing border radius */
+  border: none; /* No border */
+  cursor: pointer; /* Cursor on hover */
+  background: linear-gradient(45deg, #ff416c, #ff4b2b, #ff758c, #ff7eb3); /* Multiple color gradient */
+  background-size: 600% 600%; /* Large enough to contain the full gradient */
+  animation: gradientBG 15s ease infinite; /* Applying the animation */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Existing shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Existing transitions */
+}
+
+.submit-button:hover, .submit-button:focus {
+  transform: scale(1.05); /* Scale up on hover/focus */
+  box-shadow: 0 12px 24px rgba(0,0,0,0.25); /* Increased shadow on hover */
+  outline: none; /* Remove outline */
+}
+
+.submit-button:active {
+  background: linear-gradient(45deg, #e63250, #e64820); /* Darker gradient when button is clicked */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Smaller shadow to simulate "pressing" the button */
+  transform: scale(0.98); /* Scale down slightly to simulate a press effect */
+}
+.company-logo {
+  position: absolute; /* Absolute positioning for the logo */
+  max-width: 3350px; /* Adjust this value based on your design needs */
+  height: auto; /* Maintain aspect ratio */
+  left: 20px; /* Margin area the logo horizontally and adds margin */
+  top: 100px; /* Margin area the logo vertically and adds margin */
+}
