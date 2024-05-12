@@ -1,32 +1,27 @@
-import { response } from 'express';
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import axios from 'axios';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function MagicLinkHandler() {
     const location = useLocation();
+    const navigate = useNavigate(); // Correctly import and use navigate
 
-    useEffect(async () => {
+    useEffect(() => {
         const params = new URLSearchParams(location.search);
         const token = params.get('token');
         if (token) {
-            //Verify token
-            try {
-                console.log("Verifying token")
-                axios.get(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger2?token=${token}`)
+            // Verify token
+            console.log("Verifying token");
+            axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger2?token=${token}`)
                 .then(response => {
-                    console.log("Login Successfull:", response.data);
-                    navigate('/HomeAdminPage');})
+                    console.log("Login Successful:", response.data);
+                    navigate('/HomeAdminPage'); // Correct usage of navigate
+                })
                 .catch(error => {
-                    console.error("Login failed:", error.response ? error.response.data.error : error.message);
+                    console.error("Login failed:", error.response ? error.response.data : error.message);
                 });
-                console.log("Login response:", response.data);
-                
-                //navigate('/HomeAdminPage'); // Adjust route as necessary
-              } catch (error) {
-                console.error("Login failed:", error.response ? error.response.data.error : error.message);
-              }
         }
-    }, [location]);
+    }, [location, navigate]); // Add navigate to dependency array
 
     return <div>Verifying...</div>;
 }

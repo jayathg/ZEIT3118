@@ -16,7 +16,7 @@ const App = () => {
     <Router> {/* Wrap everything in Router */}
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/callback" component={MagicLinkHandler} />
+        <Route path="/callback" element={<MagicLinkHandler/>} />
         <Route path="/HomeAdminPage" element={<HomeAdminPage />} />
         <Route path="/AddPage" element={<AddPage />} />
         <Route path="/DeletePage" element={<DeletePage />} />
