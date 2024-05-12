@@ -1,14 +1,28 @@
 import React from 'react';
+import './NumberPad.css';
+import axios from 'axios';
 import './NumberPad.css'; // Import the CSS file
 
 function NumberPad() {
+  let employeeID = "";
+
   const handleNumberClick = (number) => {
+    employeeID += number;
+    console.log("Employee ID: ", employeeID)
     console.log('Clicked number:', number);
   };
 
-  const navigateToHomeAdminPage = () => {
-    window.location.href = '/HomeAdminPage';
+  const navigateToHomeAdminPage = async () => {
+    console.log("Navigating to Home Admin Page")
+    try {
+      const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger1?userID=${employeeID}`);
+      console.log("Login response:", response.data);
+      //navigate('/HomeAdminPage'); // Adjust route as necessary
+    } catch (error) {
+      console.error("Login failed:", error.response ? error.response.data.error : error.message);
+    }
   };
+  
 
   return (
     <div className="number-pad-container">
