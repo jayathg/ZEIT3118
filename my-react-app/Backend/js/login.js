@@ -55,6 +55,34 @@ async function handleLogin(userID) {
     }
 }
 
+async function completeAuthentication(url) {
+    try {
+        const params = new URLSearchParams(url.split("?")[1]);
+        const verificationCode = params.get("verification_code");
+
+        // Make a request to Auth0's /oauth/token endpoint with the verification code
+        const tokenResponse = await axios.post('https://dev-we3vguqrc7tyu1mr.us.auth0.com/oauth/token', {
+            client_id: '1nzOnOcVNNFCtzB7CxXV87MpTL6IGb97',
+            client_secret: '-fumUNmMgoiPjVDC7dOo7rtMT-kM7QDkosQvDUdCxai5CfBYhASFEsv64R7R4FCO',
+            grant_type: 'authorization_code',
+            code: verificationCode,
+            redirect_uri: 'https://techsecuretaskforce.azurewebsites.net/HomeAdminPage',
+        });
+
+        // Check if the token response is successful
+        if (tokenResponse.status === 200) {
+          
+            console.log("Authentication successful!");
+            console.log("Redirecting to HomeAdminPage...");
+        } else {
+            console.error("Error completing authentication:", tokenResponse.statusText);
+        }
+    } catch (error) {
+        console.error("Error completing authentication:", error.message);
+    }
+}
+
+
 async function testLogin() {
     const userID = '2';
     console.log("Getting email for userID:", userID);
@@ -66,6 +94,10 @@ async function testLogin() {
     }
     
     //console.log("Handling login...");
+
+
+
+
     
 }
 

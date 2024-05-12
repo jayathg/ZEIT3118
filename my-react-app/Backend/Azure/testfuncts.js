@@ -88,3 +88,42 @@ async function sendMagicLink(email) {
         throw new Error("Error sending magic link: " + error.message);
     }
 }
+
+
+module.exports = async function handleMagicLinkRequest(req, res) {
+    try {
+        const url = req.query.url;
+        await completeAuthentication(url, res);
+        res.status(200).send("Authentication successful!");
+    } catch (error) {
+        console.error("Error handling magic link request:", error.message);
+        res.status(500).send("An error occurred during authentication.");
+    }
+};
+
+async function completeAuthentication(url, res) {
+    try {
+        const params = new URLSearchParams(url.split("?")[1]);
+        const verificationCode = params.get("verification_code");
+
+        const tokenResponse = await axios.post('https://dev-we3vguqrc7tyu1mr.us.auth0.com/oauth/token', {
+            client_id: '1nzOnOcVNNFCtzB7CxXV87MpTL6IGb97',
+            client_secret: '-fumUNmMgoiPjVDC7dOo7rtMT-kM7QDkosQvDUdCxai5CfBYhASFEsv64R7R4FCO',
+            grant_type: 'authorization_code',
+            code: verificationCode,
+            redirect_uri: 'https://techsecuretaskforce.azurewebsites.net/HomeAdminPage',
+        });
+
+        if (tokenResponse.status === 200) {
+            console.log("Authentication successful!");
+            console.log("Redirecting to HomeAdminPage...");
+            res.redirect("https://techsecuretaskforce.azurewebsites.net/HomeAdminPage");
+        } else {
+            console.error("Error completing authentication:", tokenResponse.statusText);
+            throw new Error("Failed to authenticate.");
+        }
+    } catch (error) {
+        console.error("Error completing authentication:", error.message);
+        throw error;
+    }
+}
