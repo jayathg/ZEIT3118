@@ -8,12 +8,15 @@ import AddPage from './Components/AddPage';
 import DeletePage from './Components/DeletePage';
 import EditPage from './Components/EditPage';
 import SearchPage from './Components/SearchPageEdit';
+import MagicLinkHandler from './Components/MagicLinkHandler.js';
+
 
 const App = () => {
   return (
     <Router> {/* Wrap everything in Router */}
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/callback" component={MagicLinkHandler} />
         <Route path="/HomeAdminPage" element={<HomeAdminPage />} />
         <Route path="/AddPage" element={<AddPage />} />
         <Route path="/DeletePage" element={<DeletePage />} />
