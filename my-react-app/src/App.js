@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import BrowserRouter, Routes, and Route
 import Login from './Components/Login';
 import HomeAdminPage from './Components/HomeAdminPage';
-import Login from './Components/Login';
 import NotFoundPage from './Components/NotFoundPage';
 import AddPage from './Components/AddPage';
 import DeletePage from './Components/DeletePage';
