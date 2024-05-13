@@ -1,20 +1,41 @@
-export default function Navbar() {
+// Navbar.jsx
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // Import Link and useNavigate from react-router-dom
+import './Navbar.css';
+
+function Navbar() {
+    const navigate = useNavigate(); // Hook for navigation
+
+    const navigateToAddPage = () => {
+        navigate('/AddPage'); // Navigate to AddPage
+    };
+
+    const navigateToEditPage = () => {
+        navigate('/EditPage'); // Navigate to EditPage
+    };
+
+    const navigateToDeletePage = () => {
+        navigate('/DeletePage'); // Navigate to DeletePage
+    };
+
     return (
         <nav className="nav">
-            <a href="/AdminHomePage" className="site-title">
-            TechSecure TaskForce
-            </a>
+            <Link to="/HomeAdminPage" className="site-title">
+                Home
+            </Link>
             <ul>
                 <li>
-                    <a href="AddPage">AddData</a>
+                    <Link to="/AddPage" onClick={navigateToAddPage}>Add Data</Link> {/* Use Link for navigation */}
                 </li>
                 <li>
-                <a href="EditPage">EditData</a>
+                    <Link to="/EditPage" onClick={navigateToEditPage}>Edit Data</Link> {/* Use Link for navigation */}
                 </li>
                 <li>
-                <a href="DeletePage">DeleteData</a>
+                    <Link to="/DeletePage" onClick={navigateToDeletePage}>Delete Data</Link> {/* Use Link for navigation */}
                 </li>
             </ul>
         </nav>
     )
 }
+
+export default Navbar;

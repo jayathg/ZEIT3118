@@ -1,5 +1,12 @@
+/* Resets padding and margin for all elements to remove unwanted spaces */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Ensures the body takes full height of the viewport */
+  width: 100%; /* Ensures the body takes full width of the viewport */
+  overflow: hidden; /* Prevents scrolling */
+}
 .number-pad-container {
-
   background: repeating-linear-gradient(
     45deg,
     #606dbc,
@@ -61,28 +68,7 @@
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-/* Style for the PIN display area */
-.pin-display {
-  font-size: 24px; /* Large font size for visibility */
-  color: #333; /* Dark grey color for text */
-  margin: 10px 0 20px; /* Spacing around the display area */
-  padding: 10px 20px;
-  background-color: #fff; /* White background for contrast */
-  border-radius: 5px; /* Rounded corners */
-  width: 300px; /* Set width */
-  text-align: center; /* Center text */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
-}
-.delete-button {
-  background-color: #ff6347; /* Tomato red for the delete button */
-  color: white;
-  transition: background-color 0.2s, box-shadow 0.2s; /* Smooth transition for hover effects */
-}
 
-.delete-button:hover {
-  background-color: #e52f1b; /* Darker red on hover */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Larger shadow on hover for a "lifted" effect */
-}
 
 .submit-button {
   padding: 20px 40px; /* Existing padding */
@@ -115,4 +101,30 @@
   height: auto; /* Maintain aspect ratio */
   left: 20px; /* Margin area the logo horizontally and adds margin */
   top: 100px; /* Margin area the logo vertically and adds margin */
+}
+.display-panel {
+  font-size: 30px;
+  color: #333;
+  background-color: #fff;
+  padding: 15px 30px;
+  margin-bottom: 20px; /* Space between the display panel and the number grid */
+  width: 350px;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.delete-button {
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 8px;
+  background-color: #d9534f; /* Red color for delete button */
+  color: white;
+  margin-top: 10px; /* Space between the grid and delete button */
+  width: 300px; /* Match width with the display panel */
+  transition: background-color 0.2s;
+}
+
+.delete-button:hover {
+  background-color: #c9302c; /* Darker red on hover */
 }

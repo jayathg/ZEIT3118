@@ -1,0 +1,59 @@
+/* General body styling */
+body {
+    font-family: 'Arial', sans-serif; /* Sets the font across the page */
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4; /* Light grey background */
+}
+/* Logo styling */
+.company-logo {
+    position: absolute; /* Absolute positioning for the logo */
+    max-width: 350px; /* Adjust this value based on your design needs */
+    height: auto; /* Maintain aspect ratio */
+    left: 5px; /* Margin area the logo horizontally and adds margin */
+    top: 150px; /* Margin area the logo vertically and adds margin */
+  }
+/* Navbar specific styling */
+nav {
+    background-color: #333; /* Dark background for the navbar */
+    color: #fff; /* White text color */
+    padding: 10px 20px; /* Padding around content in navbar */
+    display: flex; /* Ensures items in navbar are in a line */
+    align-items: center; /* Centers items vertically */
+    justify-content: space-between; /* Distributes space between items */
+}
+
+/* Header styling */
+h1 {
+    color: #333; /* Dark grey color for headers */
+    text-align: center; /* Center aligns the header text */
+    padding: 20px; /* Padding around the header */
+    margin-top: 20px; /* Space above the header */
+}
+/* General link styling */
+a:link, a:visited {
+    color: rgb(239, 239, 242); /* Set both unvisited and visited links to blue */
+    text-decoration: none; /* Removes underline from links */
+}
+
+/* Ensures hover and active states are also styled */
+a:hover, a:active {
+    text-decoration: underline; /* Underline on hover for clarity */
+}
+
+/* Paragraph styling */
+p {
+    color: #666; /* Dark grey color for paragraphs */
+    line-height: 1.6; /* Line height for readability */
+    max-width: 600px; /* Maximum width of paragraphs */
+    margin: 20px auto; /* Centers paragraph and adds space around */
+    padding: 10px; /* Padding inside the paragraph box */
+    background: #fff; /* White background for contrast */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+    border-radius: 5px; /* Rounded corners */
+}
+
+/* Adding some space around the main div */
+div {
+    padding: 20px;
+}
