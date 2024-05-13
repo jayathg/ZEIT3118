@@ -8,7 +8,7 @@ import AddPage from './Components/AddPage';
 import DeletePage from './Components/DeletePage';
 import EditPage from './Components/EditPage';
 import SearchPage from './Components/SearchPageEdit';
-import MagicLinkHandler from './Components/MagicLinkHandler.js';
+import AuthCallback from './Components/AuthCallback.js';
 
 
 const App = () => {
@@ -16,7 +16,7 @@ const App = () => {
     <Router> {/* Wrap everything in Router */}
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/callback" element={<MagicLinkHandler/>} />
+        <Route path="/callback" element={<AuthCallback/>} />
         <Route path="/HomeAdminPage" element={<HomeAdminPage />} />
         <Route path="/AddPage" element={<AddPage />} />
         <Route path="/DeletePage" element={<DeletePage />} />
