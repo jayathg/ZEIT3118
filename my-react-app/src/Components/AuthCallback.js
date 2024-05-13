@@ -15,7 +15,7 @@ function AuthCallback() {
 
     const verifyToken = (token) => {
         // Call your Azure Function to verify the token
-        fetch(`/api/verifyToken?token=${encodeURIComponent(token)}`)
+        fetch(`https://techsecuretaskforcefunction.azurewebsites.net/api/verifyToken?token=${encodeURIComponent(token)}`)
             .then(response => response.json())
             .then(data => {
                 console.log('Token verification successful', data);
