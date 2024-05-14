@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 
 function NumberPad() {
-  const [employeeID, setEmployeeID] = useState(""); // Add this line
+  let [employeeID] = useState(""); // Add this line
 
 
   const handleNumberClick = (number) => {
