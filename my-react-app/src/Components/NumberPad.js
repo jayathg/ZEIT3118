@@ -2,9 +2,13 @@ import React from 'react';
 import './NumberPad.css';
 import axios from 'axios';
 import './NumberPad.css'; // Import the CSS file
+import Cookies from 'js-cookie';
+import { useState } from 'react';
+
 
 function NumberPad() {
-  let employeeID = "";
+  let [employeeID] = useState(""); // Add this line
+
 
   const handleNumberClick = (number) => {
     employeeID += number;
@@ -12,11 +16,13 @@ function NumberPad() {
     console.log('Clicked number:', number);
   };
 
+
   const navigateToHomeAdminPage = async () => {
     console.log("Navigating to Home Admin Page")
     try {
       const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger1?userID=${employeeID}`);
       console.log("Login response:", response.data);
+      Cookies.set('authState', response.data.state);
       //navigate('/HomeAdminPage'); // Adjust route as necessary
     } catch (error) {
       console.error("Login failed:", error.response ? error.response.data.error : error.message);

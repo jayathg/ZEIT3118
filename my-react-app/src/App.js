@@ -8,17 +8,21 @@ import AddPage from './Components/AddPage';
 import DeletePage from './Components/DeletePage';
 import EditPage from './Components/EditPage';
 import SearchPage from './Components/SearchPageEdit';
+import AuthCallback from './Components/AuthCallback.js';
+import ContinueLogin from './Components/ContinueLogin.js';
 
 const App = () => {
   return (
     <Router> {/* Wrap everything in Router */}
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/callback" element={<AuthCallback/>} />
         <Route path="/HomeAdminPage" element={<HomeAdminPage />} />
         <Route path="/AddPage" element={<AddPage />} />
         <Route path="/DeletePage" element={<DeletePage />} />
         <Route path="/EditPage" element={<EditPage />} />
         <Route path="/SearchPage" element={<SearchPage />} />
+        <Route path="/ContinueLogin" element={<ContinueLogin />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
