@@ -12,6 +12,7 @@ body {
     height: auto; /* Maintain aspect ratio */
     left: 5px; /* Margin area the logo horizontally and adds margin */
     top: 150px; /* Margin area the logo vertically and adds margin */
+
   }
 /* Navbar specific styling */
 nav {
@@ -41,6 +42,7 @@ a:hover, a:active {
     text-decoration: underline; /* Underline on hover for clarity */
 }
 
+
 /* Paragraph styling */
 p {
     color: #666; /* Dark grey color for paragraphs */
@@ -57,3 +59,4 @@ p {
 div {
     padding: 20px;
 }
+

@@ -3,25 +3,39 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@auth0/auth0-react": "^2.2.4",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.6.8",
+    "azure-functions-core-tools": "^3.0.5682",
+    "body-parser": "^1.20.2",
     "bootstrap": "^5.3.3",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jest": "^27.5.1",
+    "js-cookie": "^3.0.5",
+    "mssql": "^10.0.2",
     "nth-check": "^2.1.1",
+    "pm2": "^5.1.0",
     "postcss": "^8.4.38",
-    "react": "^18.3.0",
+    "range": "^0.0.3",
+    "react": "^18.3.1",
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18.3.0",
     "react-router-dom": "^6.23.0",
     "react-scripts": "^5.0.1",
+    "serve": "^14.2.3",
     "web-vitals": "^2.1.4"
-    
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "serve": "serve -s build"
   },
   "eslintConfig": {
     "extends": [
@@ -49,7 +63,11 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jayathg/ZEIT3118/issues"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.2.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "globals": "^15.1.0"
   }
-  
-  
 }

@@ -1,3 +1,5 @@
+const express = require('express');
+const app = express();
 
 // Define a route for the homepage
 app.get('/', (req, res) => {
