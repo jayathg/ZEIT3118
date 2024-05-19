@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './NumberPad.css';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -8,14 +8,28 @@ function NumberPad() {
   const [input, setInput] = useState(''); // State to keep track of the input
   const [showPopup, setShowPopup] = useState(false); // State to control popup visibility
   const [popupMessage, setPopupMessage] = useState(''); // State to store popup message
+  const [numbers, setNumbers] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
+
+  // Function to shuffle numbers
+  const shuffleNumbers = () => {
+    const shuffled = numbers.sort(() => Math.random() - 0.5);
+    setNumbers([...shuffled]);
+  };
+
+  // Shuffle numbers on component mount
+  useEffect(() => {
+    shuffleNumbers();
+  }, []);
+
 
   const handleNumberClick = (number) => {
     const newInput = input + number;
     setInput(newInput); // Append the clicked number to the current input
     setEmployeeID(newInput); // Update employeeID with the new input
     console.log("Employee ID: ", newInput);
-
     console.log('Clicked number:', number);
+    shuffleNumbers(); // Shuffle numbers after each click
+
   };
 
   const navigateToHomeAdminPage = async () => {
@@ -56,7 +70,7 @@ function NumberPad() {
         <h1>Enter Your PIN</h1>
         <div className="display-panel">{input}</div> {/* Display panel to show entered numbers */}
         <div className="buttons-grid">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map(number => (
+          {numbers.map(number => (
             <button key={number} onClick={() => handleNumberClick(number)}>
               {number}
             </button>
