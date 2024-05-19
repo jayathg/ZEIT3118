@@ -11,7 +11,8 @@ body {
     max-width: 350px; /* Adjust this value based on your design needs */
     height: auto; /* Maintain aspect ratio */
     left: 5px; /* Margin area the logo horizontally and adds margin */
-    top: 100px; /* Margin area the logo vertically and adds margin */
+    top: 150px; /* Margin area the logo vertically and adds margin */
+
   }
 /* Navbar specific styling */
 nav {
@@ -30,6 +31,17 @@ h1 {
     padding: 20px; /* Padding around the header */
     margin-top: 20px; /* Space above the header */
 }
+/* General link styling */
+a:link, a:visited {
+    color: rgb(239, 239, 242); /* Set both unvisited and visited links to blue */
+    text-decoration: none; /* Removes underline from links */
+}
+
+/* Ensures hover and active states are also styled */
+a:hover, a:active {
+    text-decoration: underline; /* Underline on hover for clarity */
+}
+
 
 /* Paragraph styling */
 p {
@@ -47,3 +59,4 @@ p {
 div {
     padding: 20px;
 }
+
