@@ -6,13 +6,14 @@ import Cookies from 'js-cookie';
 import { useState } from 'react';
 
 function NumberPad() {
-  let [employeeID] = useState(""); // Add this line
-  const [input, setInput] = useState(''); // State to keep track of the input
+  const [employeeID, setEmployeeID] = useState(''); // Correct use of useState
+  const [input, setInput] = useState('');
 
   const handleNumberClick = (number) => {
-    setInput(input + number); // Append the clicked number to the current input
-    employeeID += number;
-    console.log("Employee ID: ", employeeID)
+    const newInput = input + number;
+    setInput(newInput); // Append the clicked number to the current input
+    setEmployeeID(newInput); // Update employeeID with the new input
+    console.log("Employee ID: ", newInput);
 
     console.log('Clicked number:', number);
   };
@@ -32,7 +33,9 @@ function NumberPad() {
   
 
   const handleDelete = () => {
-    setInput(input.slice(0, -1)); // Remove the last character from the input
+    const newInput = input.slice(0, -1);
+    setInput(newInput); // Remove the last character from the input
+    setEmployeeID(newInput); // Update employeeID with the new input
   };
 
   return (
