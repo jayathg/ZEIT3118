@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './NumberPad.css';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -10,14 +10,16 @@ function NumberPad() {
   const [popupMessage, setPopupMessage] = useState('');
   const [numbers, setNumbers] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
 
+  // Function to shuffle numbers
+  const shuffleNumbers = useCallback(() => {
+    const shuffled = numbers.sort(() => Math.random() - 0.5);
+    setNumbers([...shuffled]);
+  }, [numbers]);
+
   // Shuffle numbers on component mount
   useEffect(() => {
-    const shuffleNumbers = () => {
-      const shuffled = numbers.sort(() => Math.random() - 0.5);
-      setNumbers([...shuffled]);
-    };
     shuffleNumbers();
-  }, []); // Empty dependency array ensures this runs only once on mount
+  }, [shuffleNumbers, numbers]);
 
   const handleNumberClick = (number) => {
     const newInput = input + number;
@@ -25,10 +27,7 @@ function NumberPad() {
     setEmployeeID(newInput);
     console.log("Employee ID: ", newInput);
     console.log('Clicked number:', number);
-
-    // Shuffle numbers after each click
-    const shuffled = numbers.sort(() => Math.random() - 0.5);
-    setNumbers([...shuffled]);
+    shuffleNumbers();
   };
 
   const navigateToHomeAdminPage = async () => {
