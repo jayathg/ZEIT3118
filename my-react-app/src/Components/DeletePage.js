@@ -28,6 +28,8 @@ function DeletePage() {
             
             // Check the structure of the response
             console.log(responseData);
+            console.log(responseData[0]);
+            console.log(responseData[0].userID);
     
             var users = [];    
                 // Now you can use the users array as needed
