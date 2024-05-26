@@ -16,12 +16,13 @@ function DeletePage() {
     };
 
     const handleSearchClick = async () => {
-        setShowTextBox(true);
         console.log("Searching User");
         try {
             const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger5?searchQuery=${searchInput}`);
             console.log("Search response:", response.data);
             setDummyData(response.data); // Update state with search results
+            setShowTextBox(true);
+
         } catch (error) {
             console.error("Unable to search:", error.response ? error.response.data.error : error.message);
             if (error.response && (error.response.status === 400 || error.response.status === 500)) {
