@@ -22,18 +22,26 @@ function DeletePage() {
         try {
             const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger5?searchQuery=${searchInput}`);
             console.log(response);
-            console.log(response[0]);
-            console.log(response.state);
-            console.log(response.state[0]);
             
-            console.log("Search response:", response.data[0]);
-
-            // Ensure response.data is parsed correctly
-            const responseData = typeof response.data === 'string' ? JSON.parse(response.data) : response.data;
-
-            // Use JSON.stringify for better logging
-            console.log("Search response (stringified):", JSON.stringify(responseData, null, 2));
-
+            // Access the response data
+            const responseData = response.data;
+            
+            // Check the structure of the response
+            console.log(responseData);
+    
+            // Extract the relevant information
+            if (responseData.status === 200) {
+                const users = responseData.body.result;
+                console.log("Found users:", users);
+                
+                // Now you can use the users array as needed
+                users.forEach(user => {
+                    console.log(`User: ${user.firstName} ${user.lastName}, Email: ${user.email}`);
+                });
+    
+                // You can also set this data to the state if you want to display it in the UI
+                setUsers(users);
+            }
             setDummyData(responseData.result); // Update state with search results
         } catch (error) {
             console.error("Unable to search:", error.response ? error.response.data.error : error.message);
