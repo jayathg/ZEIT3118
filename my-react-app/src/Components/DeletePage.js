@@ -36,13 +36,13 @@ function DeletePage() {
                 
                 // Now you can use the users array as needed
                 users.forEach(user => {
-                    console.log(`User: ${user.firstName} ${user.lastName}, Email: ${user.email}`);
+                    console.log(`UserID: ${user.userID}, User: ${user.firstName}, ${user.lastName}, Email: ${user.email}`);
                 });
     
                 // You can also set this data to the state if you want to display it in the UI
-                setUsers(users);
+                setDummyData(users);
             }
-            setDummyData(responseData.result); // Update state with search results
+            
         } catch (error) {
             console.error("Unable to search:", error.response ? error.response.data.error : error.message);
             setPopupMessage("Unable to search:", error.response ? error.response.data.error : error.message )
