@@ -10,6 +10,8 @@ function EditPage() {
     const [editValues, setEditValues] = useState({ fname: "", lname: "", email: "", accessLevel: "" });
     const [dummyData, setDummyData] = useState([]);
     const [searchInput, setSearchInput] = useState('');
+    const [popupMessage, setPopupMessage] = useState('');
+
 
     const handleSearchChange = (e) => {
         setSearchInput(e.target.value);
@@ -51,10 +53,10 @@ function EditPage() {
         try {
             const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger6?userID=${userID}&fname=${editValues.fname}&lname=${editValues.lname}&email=${editValues.email}&accessLevel=${editValues.accessLevel}`);
             console.log("Edit response:", response.data);
-            //setPopupMessage(`User ${userID} has been updated.`);
+            setPopupMessage(`User ${userID} has been updated.`);
         } catch (error) {
             console.error("Unable to edit:", error.response ? error.response.data.error : error.message);
-            //setPopupMessage('An error occurred while updating the user.');
+            setPopupMessage('An error occurred while updating the user.');
         }
         setCurrentEditIndex(null); // Hide the input boxes after confirming
         setShowTextBox(false); // Show the search results again
@@ -120,6 +122,14 @@ function EditPage() {
                         <button className="confirm-button" onClick={handleConfirmClick}>
                             Click to Confirm
                         </button>
+                    </div>
+                )}
+                {showPopup && (
+                    <div className="popup">
+                        <div className="popup-content">
+                            <h2>{popupMessage}</h2>
+                                <button onClick={handleClosePopup}>Close</button>
+                        </div>
                     </div>
                 )}
             </div>
