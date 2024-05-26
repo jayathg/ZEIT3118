@@ -1,13 +1,26 @@
+//AddPage JS
+
 import React, { useState } from 'react';
-import Navbar from './Navbar'; // Import your Navbar component
-import './HomeAdminPage.css'; // Use HomeAdminPage CSS for styling
+import Navbar from './Navbar'; 
+import './HomeAdminPage.css'; 
 import './AddPage.css'
 
 function AddPage() {
     const [showData, setShowData] = useState(false);
+    const [inputValues, setInputValues] = useState(["", "", "", ""]);
 
     const toggleData = () => {
         setShowData(!showData);
+    };
+
+    const handleInputChange = (index, event) => {
+        const newValues = [...inputValues];
+        newValues[index] = event.target.value;
+        setInputValues(newValues);
+    };
+
+    const handleConfirmClick = () => {
+        console.log("Input Values:", inputValues);
     };
 
     return (
@@ -19,17 +32,24 @@ function AddPage() {
             </div>
             <div className="button-container">
                 <button className="show-button" onClick={toggleData}>
-                    {showData ? "Hide Data" : "Click to show data"}
+                    {showData ? "Hide Data" : "Click to add data"}
                 </button>
             </div>
             {showData && (
                 <div className="data-container">
-                    {/* Your data goes here */}
-                    {/* For example, you can display a table or any other content */}
-                    <textarea className="data-textarea" readOnly>
-                        John - 30
-                        Jane - 25
-                    </textarea>
+                    {inputValues.map((value, index) => (
+                        <input
+                            key={index}
+                            type="text"
+                            value={value}
+                            onChange={(e) => handleInputChange(index, e)}
+                            className="data-input"
+                            placeholder={`Input ${index + 1}`}
+                        />
+                    ))}
+                    <button className="confirm-button" onClick={handleConfirmClick}>
+                        Click to Confirm
+                    </button>
                 </div>
             )}
         </div>
@@ -37,4 +57,3 @@ function AddPage() {
 }
 
 export default AddPage;
-

@@ -1,30 +1,62 @@
-.button-container {
+.header {
     display: flex;
+    align-items: center;
     justify-content: center;
-    margin-top: 20px;
-}
-
-.show-button {
-    padding: 15px 30px;
-    font-size: 18px;
-    background-color: #007bff;
-    color: #fff;
-    border: 2px solid #007bff;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.data-container {
-    margin-top: 20px;
+    flex-direction: column;
     text-align: center;
 }
 
-.data-textarea {
-    width: 80%;
-    min-height: 200px;
-    resize: none;
+.company-logo {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin: -40px 0;
+}
+
+.show-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.show-button:hover {
+    background-color: #0056b3;
+}
+
+.data-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.data-input {
+    width: 300px;
     padding: 10px;
+    margin: 10px 0;
     font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 4px;
+}
+
+.confirm-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.confirm-button:hover {
+    background-color: #218838;
 }
