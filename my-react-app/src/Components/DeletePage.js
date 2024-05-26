@@ -29,10 +29,12 @@ function DeletePage() {
             // Check the structure of the response
             console.log(responseData);
     
-                
+            var users = [];    
                 // Now you can use the users array as needed
             responseData.forEach(user => {
                     console.log(`UserID: ${user.userID}, User: ${user.firstName}, ${user.lastName}, Email: ${user.email}`);
+                    //Add user to users
+                    users.push(user);
             });
     
                 // You can also set this data to the state if you want to display it in the UI
