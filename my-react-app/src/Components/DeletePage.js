@@ -48,7 +48,7 @@ function DeletePage() {
     const deleteUser = async (userId) => {
         console.log("Deleting User:", userId);
         try {
-            const response = await axios.delete(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger3?userID=${userId}`);
+            const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger3?userID=${userId}`);
             console.log("Delete response:", response.data);
             setPopupMessage(`User ${userId} has been deleted.`);
             // Optionally update dummyData to remove the deleted user
