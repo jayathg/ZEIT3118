@@ -76,12 +76,27 @@ function EditPage() {
         console.log("Edited Values:", editValues);
         try {
             const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger6?userID=${userID}&fname=${editValues.fname}&lname=${editValues.lname}&email=${editValues.email}&accessLevel=${editValues.accessLevel}`);
-            console.log("Edit response:", response.data);
-            setPopupMessage(`User ${userID} has been updated.`);
+            console.log(response);
+            
+            // Access the response data
+            const responseData = response.data;
+            
+            // Check the structure of the response
+            console.log(responseData);
+            if (responseData.message === "Edited users") {
+                const users = responseData.result;
+                console.log("Edited user:", users);
+                setPopupMessage(`User ${userID} has been updated.`);
+
+            } else {
+                console.error("Error:", responseData.body);
+                setPopupMessage(`Error: ${responseData.body}`);
+            }
         } catch (error) {
             console.error("Unable to edit:", error.response ? error.response.data.error : error.message);
             setPopupMessage('An error occurred while updating the user.');
         }
+        showPopup(true);
         setCurrentEditIndex(null); // Hide the input boxes after confirming
         setShowTextBox(false); // Show the search results again
     };
