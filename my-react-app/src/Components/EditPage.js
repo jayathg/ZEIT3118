@@ -11,10 +11,14 @@ function EditPage() {
     const [dummyData, setDummyData] = useState([]);
     const [searchInput, setSearchInput] = useState('');
     const [popupMessage, setPopupMessage] = useState('');
-
+    const [showPopup, setShowPopup] = useState(false);
 
     const handleSearchChange = (e) => {
         setSearchInput(e.target.value);
+    };
+
+    const handleClosePopup = () => {
+        setShowPopup(false);
     };
 
     const handleSearchClick = async () => {
