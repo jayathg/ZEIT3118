@@ -19,8 +19,33 @@ function AddPage() {
         setInputValues(newValues);
     };
 
-    const handleConfirmClick = () => {
+    const handleConfirmClick = async() => {
         console.log("Input Values:", inputValues);
+        try {
+            const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger4?fname=${inputValues[0]}&lname=${inputValues[1]}&email=${inputValues[2]}&accessLevel=${inputValues[3]}`);
+            console.log(response);
+            
+            // Access the response data
+            const responseData = response.data;
+            
+            // Check the structure of the response
+            console.log(responseData);
+            if (responseData.message === "Added users") {
+                const users = responseData.result;
+                console.log("Added user:", users);
+                setPopupMessage(`User ${users} has been updated.`);
+
+            } else {
+                console.error("Error:", responseData.body);
+                setPopupMessage(`Error: ${responseData.body}`);
+            }
+        } catch (error) {
+            console.error("Unable to edit:", error.response ? error.response.data.error : error.message);
+            setPopupMessage('An error occurred while updating the user.');
+        }
+        showPopup(true);
+        setCurrentEditIndex(null); // Hide the input boxes after confirming
+        setShowTextBox(false); // Show the search results again
     };
 
     return (

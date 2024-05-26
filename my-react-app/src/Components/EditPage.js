@@ -84,8 +84,8 @@ function EditPage() {
             // Check the structure of the response
             console.log(responseData);
             if (responseData.message === "Edited users") {
-                const users = responseData.result;
-                console.log("Edited user:", users);
+                //const success = responseData.result;
+                console.log("Edited user:", userID);
                 setPopupMessage(`User ${userID} has been updated.`);
 
             } else {
@@ -96,7 +96,7 @@ function EditPage() {
             console.error("Unable to edit:", error.response ? error.response.data.error : error.message);
             setPopupMessage('An error occurred while updating the user.');
         }
-        showPopup(true);
+        setShowPopup(true);
         setCurrentEditIndex(null); // Hide the input boxes after confirming
         setShowTextBox(false); // Show the search results again
     };
