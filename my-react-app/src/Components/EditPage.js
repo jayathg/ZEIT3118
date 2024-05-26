@@ -53,8 +53,9 @@ function EditPage() {
     
 
     const handleEditClick = (index) => {
+        const entry = dummyData.find(user => user.employeeID === index);
+
         setCurrentEditIndex(index);
-        const entry = dummyData[index];
         setEditValues({ 
             fname: entry.fname || "", 
             lname: entry.lname || "", 
