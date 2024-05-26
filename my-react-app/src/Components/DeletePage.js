@@ -21,6 +21,11 @@ function DeletePage() {
         console.log("Searching User");
         try {
             const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger5?searchQuery=${searchInput}`);
+            console.log(response);
+            console.log(response[0]);
+            console.log(response.state);
+            console.log(response.state[0]);
+            
             console.log("Search response:", response.data[0]);
 
             // Ensure response.data is parsed correctly
