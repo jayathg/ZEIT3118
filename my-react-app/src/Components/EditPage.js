@@ -57,8 +57,8 @@ function EditPage() {
 
         setCurrentEditIndex(index);
         setEditValues({ 
-            fname: entry.fname || "", 
-            lname: entry.lname || "", 
+            fname: entry.firstName || "", 
+            lname: entry.lastName || "", 
             email: entry.email || "", 
             accessLevel: entry.accessLevel || "" 
         }); // Initialize the input fields with existing entry values
