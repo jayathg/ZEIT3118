@@ -17,7 +17,6 @@ function DeletePage() {
     };
 
     const handleSearchClick = async () => {
-        
         console.log("Searching User");
         try {
             const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger5?searchQuery=${searchInput}`);
@@ -28,26 +27,31 @@ function DeletePage() {
             
             // Check the structure of the response
             console.log(responseData);
-            console.log(responseData[0]);
-            console.log(responseData[0].userID);
     
-            var users = [];    
+            // Extract the relevant information
+            if (responseData.message === "Found users") {
+                const users = responseData.result;
+                console.log("Found users:", users);
+                
                 // Now you can use the users array as needed
-            responseData.forEach(user => {
-                    console.log(`UserID: ${user.userID}, User: ${user.firstName}, ${user.lastName}, Email: ${user.email}`);
-                    //Add user to users
-                    users.push(user);
-            });
+                users.forEach(user => {
+                    console.log(`UserID: ${user.employeeID}, User: ${user.firstName} ${user.lastName}, Email: ${user.email}`);
+                });
     
                 // You can also set this data to the state if you want to display it in the UI
-            setDummyData(users);
-            setShowTextBox(true);
-            
+                setDummyData(users);  // Assuming you have a setDummyData state function
+                setShowTextBox(true);
+            } else {
+                console.error("Error:", responseData.body);
+                setPopupMessage(`Error: ${responseData.body}`);
+            }
         } catch (error) {
             console.error("Unable to search:", error.response ? error.response.data.error : error.message);
-            setPopupMessage("Unable to search:", error.response ? error.response.data.error : error.message )
+            setPopupMessage(`Unable to search: ${error.response ? error.response.data.error : error.message}`);
         }
     };
+    
+    
 
     const deleteUser = async () => {
         console.log("Deleting User:", userToDelete);
