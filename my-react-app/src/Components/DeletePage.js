@@ -94,7 +94,7 @@ function DeletePage() {
                         {dummyData.map((user, index) => (
                             <div key={index} className="result-item">
                                 <span>{user.employeeID} - {user.firstName} {user.lastName} - {user.email}</span>
-                                <button className="Delete-button" onClick={() => handleDeleteClick(user.employeeID)}>Delete</button>
+                                <button className="edit-button" onClick={() => handleDeleteClick(user.employeeID)}>Delete</button>
                             </div>
                         ))}
                     </div>

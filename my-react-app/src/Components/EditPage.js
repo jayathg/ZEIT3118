@@ -56,7 +56,6 @@ function EditPage() {
         setCurrentEditIndex(index);
         const entry = dummyData[index];
         setEditValues({ 
-            userID: index,
             fname: entry.fname || "", 
             lname: entry.lname || "", 
             email: entry.email || "", 
@@ -72,7 +71,7 @@ function EditPage() {
     };
 
     const handleConfirmClick = async () => {
-        const userID = editValues.userID;
+        const userID = currentEditIndex;
         console.log("Edited Values:", editValues);
         try {
             const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger6?userID=${userID}&fname=${editValues.fname}&lname=${editValues.lname}&email=${editValues.email}&accessLevel=${editValues.accessLevel}`);
@@ -107,7 +106,7 @@ function EditPage() {
                     <div className="result-container">
                         {dummyData.map((user, index) => (
                             <div key={index} className="result-item">
-                                <span>{user.employeeID} - {user.fname} {user.lname} - {user.email}</span>
+                                <span>{user.employeeID} - {user.firstName} {user.lastName} - {user.email}</span>
                                 <button className="edit-button" onClick={() => handleEditClick(user.employeeID)}>Edit</button>
                             </div>
                         ))}
