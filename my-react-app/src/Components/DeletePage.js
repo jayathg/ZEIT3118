@@ -7,7 +7,6 @@ import './DeletePage.css';
 function DeletePage() {
     const [showTextBox, setShowTextBox] = useState(false);
     const [searchInput, setSearchInput] = useState('');
-    const [userToDelete, setUserToDelete] = useState(''); 
     const [dummyData, setDummyData] = useState([]);
     const [popupMessage, setPopupMessage] = useState('');
     const [showPopup, setShowPopup] = useState(false);
@@ -18,26 +17,24 @@ function DeletePage() {
 
     const handleSearchClick = async () => {
         setShowTextBox(true);
-        //Search Data
         console.log("Searching User");
         try {
-          const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger5?searchQuery=${searchInput}`);
-          console.log("Search response:", response.data);
-          setDummyData(response.data); // Update state with search results
+            const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger5?searchQuery=${searchInput}`);
+            console.log("Search response:", response.data);
+            setDummyData(response.data); // Update state with search results
         } catch (error) {
-          console.error("Unable to search:", error.response ? error.response.data.error : error.message);
-          if (error.response && (error.response.status === 400 || error.response.status === 500)) {
-            setPopupMessage('There was an error processing your request. Please try again.');
-          } else {
-            setPopupMessage('An unexpected error occurred. Please try again.');
-          }
-          setShowPopup(true);
+            console.error("Unable to search:", error.response ? error.response.data.error : error.message);
+            if (error.response && (error.response.status === 400 || error.response.status === 500)) {
+                setPopupMessage('There was an error processing your request. Please try again.');
+            } else {
+                setPopupMessage('An unexpected error occurred. Please try again.');
+            }
+            setShowPopup(true);
         }
     };
 
     const deleteUser = async (user) => {
         console.log("Deleting User:", user);
-        setUserToDelete(user); // Update state with user to delete
         try {
             const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger3?searchQuery=${user}`);
             console.log("Delete response:", response.data);
@@ -47,9 +44,9 @@ function DeletePage() {
         } catch (error) {
             console.error("Unable to delete:", error.response ? error.response.data.error : error.message);
             if (error.response && (error.response.status === 400 || error.response.status === 500)) {
-              setPopupMessage('There was an error processing your request. Please try again.');
+                setPopupMessage('There was an error processing your request. Please try again.');
             } else {
-              setPopupMessage('An unexpected error occurred. Please try again.');
+                setPopupMessage('An unexpected error occurred. Please try again.');
             }
         }
         setShowPopup(true);
@@ -95,7 +92,6 @@ function DeletePage() {
                     </div>
                 )}
             </div>
-            
             <img src="/logo.png" alt="Company Logo" className="company-logo" />
         </div>
     );
