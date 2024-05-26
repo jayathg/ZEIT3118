@@ -20,14 +20,15 @@ function DeletePage() {
         setShowTextBox(true);
         console.log("Searching User");
         try {
+            
             const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger5?searchQuery=${searchInput}`);
-            console.log(response)
-            console.log(response.state)
-            console.log("Search response:", response.message);
+            console.log("Search response:", response.data);
+            // Use JSON.stringify for better logging
+            console.log("Search response (stringified):", JSON.stringify(response.data, null, 2));
             
             // Check if response.data is an array or not
-            if (Array.isArray(response.data)) {
-                setDummyData(response.data); // Update state with search results
+            if (Array.isArray(response.data.result)) {
+                setDummyData(response.data.result); // Update state with search results
             } else {
                 console.error("Expected array but got:", response.data);
                 setDummyData([]); // Set to empty array if response is not an array
