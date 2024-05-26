@@ -14,6 +14,10 @@ function AddPage() {
         setShowData(!showData);
     };
 
+    const handleClosePopup = () => {
+        setShowPopup(false);
+    };
+
     const handleInputChange = (index, event) => {
         const newValues = [...inputValues];
         newValues[index] = event.target.value;
