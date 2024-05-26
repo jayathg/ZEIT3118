@@ -7,7 +7,6 @@ import './DeletePage.css';
 function DeletePage() {
     const [showTextBox, setShowTextBox] = useState(false);
     const [searchInput, setSearchInput] = useState('');
-    const [userToDelete, setUserToDelete] = useState('');
     const [dummyData, setDummyData] = useState([]);
     const [popupMessage, setPopupMessage] = useState('');
     const [showPopup, setShowPopup] = useState(false);
@@ -32,14 +31,9 @@ function DeletePage() {
             if (responseData.message === "Found users") {
                 const users = responseData.result;
                 console.log("Found users:", users);
-                
-                // Now you can use the users array as needed
-                users.forEach(user => {
-                    console.log(`UserID: ${user.employeeID}, User: ${user.firstName} ${user.lastName}, Email: ${user.email}`);
-                });
     
                 // You can also set this data to the state if you want to display it in the UI
-                setDummyData(users);  // Assuming you have a setDummyData state function
+                setDummyData(users);
                 setShowTextBox(true);
             } else {
                 console.error("Error:", responseData.body);
@@ -51,16 +45,14 @@ function DeletePage() {
         }
     };
     
-    
-
-    const deleteUser = async () => {
-        console.log("Deleting User:", userToDelete);
+    const deleteUser = async (userId) => {
+        console.log("Deleting User:", userId);
         try {
-            const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger3?searchQuery=${userToDelete}`);
+            const response = await axios.delete(`https://techsecuretaskforcefunction.azurewebsites.net/api/deleteUser?userId=${userId}`);
             console.log("Delete response:", response.data);
-            setPopupMessage(`User ${userToDelete} has been deleted.`);
+            setPopupMessage(`User ${userId} has been deleted.`);
             // Optionally update dummyData to remove the deleted user
-            setDummyData(dummyData.filter(item => item !== userToDelete));
+            setDummyData(dummyData.filter(user => user.employeeID !== userId));
         } catch (error) {
             console.error("Unable to delete:", error.response ? error.response.data.error : error.message);
             if (error.response && (error.response.status === 400 || error.response.status === 500)) {
@@ -72,9 +64,8 @@ function DeletePage() {
         setShowPopup(true);
     };
 
-    const handleDeleteClick = (user) => {
-        setUserToDelete(user);
-        deleteUser();
+    const handleDeleteClick = (userId) => {
+        deleteUser(userId);
     };
 
     const handleClosePopup = () => {
@@ -99,21 +90,15 @@ function DeletePage() {
                     <button className="search-button" onClick={handleSearchClick}>Search</button>
                 </div>
                 {showTextBox && (
-                <div>
-                    {dummyData.length > 0 ? (
-                        <ul>
-                            {dummyData.map((user) => (
-                                <li key={user.employeeID}>
-                                    {user.firstName} {user.lastName} - {user.email}<button className="Delete-button" onClick={() => handleDeleteClick(user.employeeID)}>Delete</button>
-
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>No users found.</p>
-                    )}
-                </div>
-            )}
+                    <div className="result-container">
+                        {dummyData.map((user, index) => (
+                            <div key={index} className="result-item">
+                                <span>{user.employeeID} - {user.firstName} {user.lastName} - {user.email}</span>
+                                <button className="Delete-button" onClick={() => handleDeleteClick(user.employeeID)}>Delete</button>
+                            </div>
+                        ))}
+                    </div>
+                )}
                 
                 {showPopup && (
                     <div className="popup">
