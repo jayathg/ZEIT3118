@@ -29,11 +29,9 @@ function DeletePage() {
             // Check the structure of the response
             console.log(responseData);
     
-            const users = responseData.body.result;
-            console.log("Found users:", users);
                 
                 // Now you can use the users array as needed
-            users.forEach(user => {
+            responseData.forEach(user => {
                     console.log(`UserID: ${user.userID}, User: ${user.firstName}, ${user.lastName}, Email: ${user.email}`);
             });
     
