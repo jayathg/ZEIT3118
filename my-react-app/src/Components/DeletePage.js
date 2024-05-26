@@ -20,29 +20,19 @@ function DeletePage() {
         setShowTextBox(true);
         console.log("Searching User");
         try {
-            
             const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger5?searchQuery=${searchInput}`);
             console.log("Search response:", response.data);
+
+            // Ensure response.data is parsed correctly
+            const responseData = typeof response.data === 'string' ? JSON.parse(response.data) : response.data;
+
             // Use JSON.stringify for better logging
-            console.log("Search response (stringified):", JSON.stringify(response.data, null, 2));
-            
-            // Check if response.data is an array or not
-            if (Array.isArray(response.data.result)) {
-                setDummyData(response.data.result); // Update state with search results
-            } else {
-                console.error("Expected array but got:", response.data);
-                setDummyData([]); // Set to empty array if response is not an array
-                setPopupMessage('Unexpected response format. Please try again.');
-                setShowPopup(true);
-            }
+            console.log("Search response (stringified):", JSON.stringify(responseData, null, 2));
+
+            setDummyData(responseData.result); // Update state with search results
         } catch (error) {
             console.error("Unable to search:", error.response ? error.response.data.error : error.message);
-            if (error.response && (error.response.status === 400 || error.response.status === 500)) {
-                setPopupMessage('There was an error processing your request. Please try again.');
-            } else {
-                setPopupMessage('An unexpected error occurred. Please try again.');
-            }
-            setShowPopup(true);
+            setPopupMessage("Unable to search:", error.response ? error.response.data.error : error.message )
         }
     };
 
