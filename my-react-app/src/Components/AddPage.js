@@ -1,5 +1,4 @@
-//AddPage JS
-
+import axios from 'axios';
 import React, { useState } from 'react';
 import Navbar from './Navbar'; 
 import './HomeAdminPage.css'; 
@@ -8,6 +7,8 @@ import './AddPage.css'
 function AddPage() {
     const [showData, setShowData] = useState(false);
     const [inputValues, setInputValues] = useState(["", "", "", ""]);
+    const [popupMessage, setPopupMessage] = useState('');
+    const [showPopup, setShowPopup] = useState(false);
 
     const toggleData = () => {
         setShowData(!showData);
@@ -43,9 +44,9 @@ function AddPage() {
             console.error("Unable to edit:", error.response ? error.response.data.error : error.message);
             setPopupMessage('An error occurred while updating the user.');
         }
-        showPopup(true);
-        setCurrentEditIndex(null); // Hide the input boxes after confirming
-        setShowTextBox(false); // Show the search results again
+        setShowPopup(true);
+        setInputValues(["", "", "", ""]); // Clear the input values after confirming
+        setShowData(false); // Hide the input boxes after confirming
     };
 
     return (
@@ -77,6 +78,14 @@ function AddPage() {
                     </button>
                 </div>
             )}
+            {showPopup && (
+                    <div className="popup">
+                        <div className="popup-content">
+                            <h2>{popupMessage}</h2>
+                                <button onClick={handleClosePopup}>Close</button>
+                        </div>
+                    </div>
+                )}
         </div>
     );
 }
