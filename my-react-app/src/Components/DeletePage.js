@@ -17,7 +17,7 @@ function DeletePage() {
     };
 
     const handleSearchClick = async () => {
-        setShowTextBox(true);
+        
         console.log("Searching User");
         try {
             const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger5?searchQuery=${searchInput}`);
@@ -29,19 +29,17 @@ function DeletePage() {
             // Check the structure of the response
             console.log(responseData);
     
-            // Extract the relevant information
-            if (responseData.status === 200) {
-                const users = responseData.body.result;
-                console.log("Found users:", users);
+            const users = responseData.body.result;
+            console.log("Found users:", users);
                 
                 // Now you can use the users array as needed
-                users.forEach(user => {
-                    console.log(`UserID: ${user.userID}, User: ${user.firstName}, ${user.lastName}, Email: ${user.email}`);
-                });
+            users.forEach(user => {
+                    onsole.log(`UserID: ${user.userID}, User: ${user.firstName}, ${user.lastName}, Email: ${user.email}`);
+            });
     
                 // You can also set this data to the state if you want to display it in the UI
-                setDummyData(users);
-            }
+            setDummyData(users);
+            setShowTextBox(true);
             
         } catch (error) {
             console.error("Unable to search:", error.response ? error.response.data.error : error.message);
