@@ -22,16 +22,35 @@ function EditPage() {
     };
 
     const handleSearchClick = async () => {
-        setShowTextBox(true);
         console.log("Searching User");
         try {
             const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger5?searchQuery=${searchInput}`);
-            console.log("Search response:", response.data);
-            setDummyData(response.data); // Update state with search results
+            console.log(response);
+            
+            // Access the response data
+            const responseData = response.data;
+            
+            // Check the structure of the response
+            console.log(responseData);
+    
+            // Extract the relevant information
+            if (responseData.message === "Found users") {
+                const users = responseData.result;
+                console.log("Found users:", users);
+    
+                // You can also set this data to the state if you want to display it in the UI
+                setDummyData(users);
+                setShowTextBox(true);
+            } else {
+                console.error("Error:", responseData.body);
+                setPopupMessage(`Error: ${responseData.body}`);
+            }
         } catch (error) {
             console.error("Unable to search:", error.response ? error.response.data.error : error.message);
+            setPopupMessage(`Unable to search: ${error.response ? error.response.data.error : error.message}`);
         }
     };
+    
 
     const handleEditClick = (index) => {
         setCurrentEditIndex(index);
