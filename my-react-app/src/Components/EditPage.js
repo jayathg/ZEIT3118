@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Navbar from './Navbar'; // Import your Navbar component
 import './HomeAdminPage.css'; // Use HomeAdminPage CSS for styling
 import './EditPage.css';
