@@ -99,19 +99,22 @@ function DeletePage() {
                     <button className="search-button" onClick={handleSearchClick}>Search</button>
                 </div>
                 {showTextBox && (
-                    <div className="result-container">
-                        {dummyData.length > 0 ? (
-                            dummyData.map((entry, index) => (
-                                <div key={index} className="result-item">
-                                    <span>{entry}</span>
-                                    <button className="Delete-button" onClick={() => handleDeleteClick(entry)}>Delete</button>
-                                </div>
-                            ))
-                        ) : (
-                            <p>No results found</p>
-                        )}
-                    </div>
-                )}
+                <div>
+                    {dummyData.length > 0 ? (
+                        <ul>
+                            {dummyData.map((user) => (
+                                <li key={user.employeeID}>
+                                    {user.firstName} {user.lastName} - {user.email}<button className="Delete-button" onClick={() => handleDeleteClick(user.employeeID)}>Delete</button>
+
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>No users found.</p>
+                    )}
+                </div>
+            )}
+                
                 {showPopup && (
                     <div className="popup">
                         <div className="popup-content">
