@@ -10,6 +10,7 @@ import EditPage from './Components/EditPage';
 import SearchPage from './Components/SearchPageEdit';
 import AuthCallback from './Components/AuthCallback.js';
 import ContinueLogin from './Components/ContinueLogin.js';
+import HomeGenUserPage from './Components/HomeGenUserPage.js';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/" element={<Login />} />
         <Route path="/callback" element={<AuthCallback/>} />
         <Route path="/HomeAdminPage" element={<HomeAdminPage />} />
+        <Route path="/HomeGenUserPage" element={<HomeGenUserPage />} />
         <Route path="/AddPage" element={<AddPage />} />
         <Route path="/DeletePage" element={<DeletePage />} />
         <Route path="/EditPage" element={<EditPage />} />

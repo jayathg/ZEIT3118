@@ -1,30 +1,116 @@
-.button-container {
+.header {
     display: flex;
+    align-items: center;
     justify-content: center;
-    margin-top: 20px;
-}
-
-.show-button {
-    padding: 15px 30px;
-    font-size: 18px;
-    background-color: #007bff;
-    color: #fff;
-    border: 2px solid #007bff;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.data-container {
-    margin-top: 20px;
+    flex-direction: column;
     text-align: center;
 }
 
-.data-textarea {
-    width: 80%;
-    min-height: 200px;
-    resize: none;
+.company-logo {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin: -40px 0;
+}
+
+.show-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.show-button:hover {
+    background-color: #0056b3;
+}
+
+.data-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.data-input {
+    width: 300px;
     padding: 10px;
+    margin: 10px 0;
     font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 4px;
 }
+
+.confirm-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.confirm-button:hover {
+    background-color: #218838;
+}
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 300px; /* Control the width of the popup */
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .popup-content h2 {
+    margin-top: 0;
+    color: #333; /* Dark grey color for text */
+    font-size: 24px; /* Increased font size for better visibility */
+  }
+  
+  .popup-content button {
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 8px;
+    background-color: #007bff; /* Primary blue background for buttons */
+    color: white; /* White text color */
+    border: none;
+    cursor: pointer; /* Cursor on hover */
+    transition: background-color 0.2s, box-shadow 0.2s; /* Smooth transition for hover effects */
+  }
+  
+  .popup-content button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Larger shadow on hover for a "lifted" effect */
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
