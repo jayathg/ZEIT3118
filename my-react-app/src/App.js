@@ -11,7 +11,7 @@ import SearchPage from './Components/SearchPageEdit';
 import AuthCallback from './Components/AuthCallback.js';
 import ContinueLogin from './Components/ContinueLogin.js';
 import HomeGenUserPage from './Components/HomeGenUserPage.js';
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from './Components/ProtectedRoute';
 
 
 const App = () => {
