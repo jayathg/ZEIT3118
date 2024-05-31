@@ -1,6 +1,7 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 import Navbar from './Navbar'; 
+import useNavigate  from 'react-router-dom'; // Import Link and useNavigate from react-router-dom
 import './HomeAdminPage.css'; 
 import './Logout.css';
 
