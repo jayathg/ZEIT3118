@@ -1,23 +1,16 @@
-// AuthCallback.js
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import jwt from 'jsonwebtoken';
 import Cookies from 'js-cookie';
-import { parseJwt } from './utils';
 
 const AuthCallback = () => {
     const history = useHistory();
 
     useEffect(() => {
-        // Generate JWT
-        const user = { permissions: ['admin'] }; // Assume admin permissions
-        const token = jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-        // Set a cookie with the token
-        Cookies.set('authToken', token, { expires: 1 });
-
-        // Redirect to admin page
+        // Simulate setting user role based on admin authentication
+        const userRole = 'admin'; // Assume the user is an admin for this example
+        Cookies.set('userRole', userRole, { expires: 1 }); // Set cookie with role
         history.push('/HomeAdminPage');
+        
     }, [history]);
 
     return <div>Loading...</div>;
