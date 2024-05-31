@@ -7,7 +7,7 @@ function SimpleNavbar() {
     const navigate = useNavigate(); // Hook for navigation
 
     const navigateToLogoutPage = () => {
-        navigate('/Logout')
+        navigate('/LogoutGenUser')
     }
     return (
         <nav className="nav">
@@ -15,7 +15,7 @@ function SimpleNavbar() {
                 Home
             </Link>
             <ul>
-                <Link to="/Logout" onClick={navigateToLogoutPage}>Logout</Link>
+                <Link to="/LogoutGenUser" onClick={navigateToLogoutPage}>Logout</Link>
             </ul>
             
 
