@@ -14,7 +14,10 @@ function SimpleNavbar() {
             <Link to="/HomeGenUserPage" className="site-title">
                 Home
             </Link>
-            <Link to="/Logout" onClick={navigateToLogoutPage}>Logout</Link>
+            <ul>
+                <Link to="/Logout" onClick={navigateToLogoutPage}>Logout</Link>
+            </ul>
+            
 
         </nav>
     );
