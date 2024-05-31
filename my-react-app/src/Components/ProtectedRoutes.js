@@ -1,17 +1,17 @@
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 const ProtectedRoute = ({ element: Component, adminOnly, ...rest }) => {
     const userRole = Cookies.get('userRole');
 
     if (!userRole) {
-        return <Navigate to="/login" />;
+        return <Navigate to="/" />;
     }
     if (adminOnly && userRole !== 'admin') {
-        return <Navigate to="/unauthorized" />;
+        return <Navigate to="/" />;
     }
-    return <Route {...rest} element={Component} />;
+    return <Component {...rest} />;
 };
 
 export default ProtectedRoute;
