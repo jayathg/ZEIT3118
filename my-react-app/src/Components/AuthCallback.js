@@ -1,7 +1,9 @@
+// AuthCallback.js
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import Cookies from 'js-cookie';
+import { parseJwt } from './utils';
 
 const AuthCallback = () => {
     const history = useHistory();
@@ -15,7 +17,7 @@ const AuthCallback = () => {
         Cookies.set('authToken', token, { expires: 1 });
 
         // Redirect to admin page
-        history.push('/home-admin');
+        history.push('/HomeAdminPage');
     }, [history]);
 
     return <div>Loading...</div>;

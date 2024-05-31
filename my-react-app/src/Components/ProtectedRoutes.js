@@ -1,18 +1,14 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import jwtDecode from 'jwt-decode';
+import { parseJwt } from './utils';
 
 const ProtectedRoute = ({ component: Component, adminOnly, ...rest }) => {
     const token = Cookies.get('authToken');
     let user = null;
 
     if (token) {
-        try {
-            user = jwtDecode(token);
-        } catch (error) {
-            console.error('Invalid token', error);
-        }
+        user = parseJwt(token);
     }
 
     return (
@@ -20,10 +16,10 @@ const ProtectedRoute = ({ component: Component, adminOnly, ...rest }) => {
             {...rest}
             render={(props) => {
                 if (!user) {
-                    return <Redirect to="/Login" />;
+                    return <Redirect to="/" />;
                 }
                 if (adminOnly && (!user.permissions || !user.permissions.includes('admin'))) {
-                    return <Redirect to="/Login" />;
+                    return <Redirect to="/" />;
                 }
                 return <Component {...props} />;
             }}
