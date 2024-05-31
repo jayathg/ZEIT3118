@@ -3,11 +3,16 @@ import { Link } from 'react-router-dom'; // Use Link from react-router-dom
 import './Navbar.css'; // Use the same CSS file for styling
 
 function SimpleNavbar() {
+    const navigateToLogoutPage = () => {
+        navigate('/Logout')
+    }
     return (
         <nav className="nav">
             <Link to="/HomeGenUserPage" className="site-title">
                 Home
             </Link>
+            <Link to="/Logout" onClick={navigateToLogoutPage}>Logout</Link>
+
         </nav>
     );
 }
