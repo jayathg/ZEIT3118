@@ -17,6 +17,10 @@ function Navbar() {
     const navigateToDeletePage = () => {
         navigate('/DeletePage'); // Navigate to DeletePage
     };
+    
+    const navigateToLogoutPage = () => {
+        navigate('/Logout')
+    }
 
     return (
         <nav className="nav">
@@ -32,6 +36,9 @@ function Navbar() {
                 </li>
                 <li>
                     <Link to="/DeletePage" onClick={navigateToDeletePage}>Delete Data</Link> {/* Use Link for navigation */}
+                </li>
+                <li>
+                    <Link to="/Logout" onClick={navigateToLogoutPage}>Logout</Link>
                 </li>
             </ul>
         </nav>

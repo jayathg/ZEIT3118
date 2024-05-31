@@ -13,6 +13,7 @@ import AuthCallback from './Components/AuthCallback';
 import ContinueLogin from './Components/ContinueLogin';
 import HomeGenUserPage from './Components/HomeGenUserPage';
 import ProtectedRoute from './Components/ProtectedRoutes';
+import LogoutPage from './Components/logout';
 const App = () => {
     return (
         <Router>
@@ -26,6 +27,7 @@ const App = () => {
                 <Route path="/EditPage" element={<ProtectedRoute adminOnly={true} element={EditPage} />} />
                 <Route path="/SearchPage" element={<ProtectedRoute adminOnly={true} element={SearchPage} />} />
                 <Route path="/ContinueLogin" element={<ProtectedRoute element={ContinueLogin} />} />
+                <Route path="/Logout" element={<LogoutPage />} />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </Router>
