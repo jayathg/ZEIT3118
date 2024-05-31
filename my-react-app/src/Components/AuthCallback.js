@@ -3,16 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 const AuthCallback = () => {
-    const navigate = useNavigate(); // Hook for navigation
-
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // Simulate setting user role based on admin authentication
-        const userRole = 'admin'; // Assume the user is an admin for this example
-        Cookies.set('userRole', userRole, { expires: 1 }); // Set cookie with role
+        // Assume the user is authenticated as an admin
+        const userRole = 'admin'; 
+        Cookies.set('userRole', userRole, { expires: 1 }); // Set the user role cookie
         navigate('/HomeAdminPage');
         
-    }, [history]);
+    }, [navigate]);
 
     return <div>Loading...</div>;
 };
