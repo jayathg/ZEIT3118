@@ -1,33 +1,24 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
+import Cookies from 'js-cookie';
 
-function AuthCallback() {
-    const location = useLocation();
+const AuthCallback = () => {
+    const history = useHistory();
 
     useEffect(() => {
-        const { hash } = location;
-        const token = new URLSearchParams(hash.replace('#', '')).get('access_token');
+        // Generate JWT
+        const user = { permissions: ['admin'] }; // Assume admin permissions
+        const token = jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-        if (token) {
-            verifyToken(token);
-        }
-    }, [location]);
+        // Set a cookie with the token
+        Cookies.set('authToken', token, { expires: 1 });
 
-    const verifyToken = (token) => {
-        // Call your Azure Function to verify the token
-        fetch(`https://techsecuretaskforcefunction.azurewebsites.net/api/verifyToken?token=${encodeURIComponent(token)}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log('Token verification successful', data);
-                // Handle successful verification, e.g., navigate to dashboard
-            })
-            .catch(error => {
-                console.error('Token verification failed', error);
-            });
-    };
+        // Redirect to admin page
+        history.push('/home-admin');
+    }, [history]);
 
-    return <div>Verifying...</div>;
-}
+    return <div>Loading...</div>;
+};
 
 export default AuthCallback;
-
