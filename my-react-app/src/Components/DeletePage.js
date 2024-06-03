@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import ReactLoading from 'react-loading';
 import Navbar from './Navbar'; // Import your Navbar component
 import './HomeAdminPage.css'; // Use HomeAdminPage CSS for styling
 import './DeletePage.css';
@@ -10,12 +11,18 @@ function DeletePage() {
     const [dummyData, setDummyData] = useState([]);
     const [popupMessage, setPopupMessage] = useState('');
     const [showPopup, setShowPopup] = useState(false);
+    const [showLoading, setShowLoading] = useState(false);
 
     const handleSearchChange = (e) => {
         setSearchInput(e.target.value);
     };
 
+    const showLoadingAnimation = () => {
+        setShowLoading(true);
+    }
+
     const handleSearchClick = async () => {
+        showLoadingAnimation();
         console.log("Searching User");
         try {
             const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger5?searchQuery=${searchInput}`);
@@ -32,28 +39,33 @@ function DeletePage() {
                 const users = responseData.result;
                 console.log("Found users:", users);
     
-                // You can also set this data to the state if you want to display it in the UI
+                setShowLoading(false);
                 setDummyData(users);
                 setShowTextBox(true);
             } else {
+                setShowLoading(false)
                 console.error("Error:", responseData.body);
                 setPopupMessage(`Error: ${responseData.body}`);
             }
         } catch (error) {
+            setShowLoading(false)
             console.error("Unable to search:", error.response ? error.response.data.error : error.message);
             setPopupMessage(`Unable to search: ${error.response ? error.response.data.error : error.message}`);
         }
     };
     
     const deleteUser = async (userId) => {
+        showLoadingAnimation();
         console.log("Deleting User:", userId);
         try {
             const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger3?userID=${userId}`);
             console.log("Delete response:", response.data);
+            setShowLoading(false);
             setPopupMessage(`User ${userId} has been deleted.`);
             // Optionally update dummyData to remove the deleted user
             setDummyData(dummyData.filter(user => user.employeeID !== userId));
         } catch (error) {
+            setShowLoading(false);
             console.error("Unable to delete:", error.response ? error.response.data.error : error.message);
             if (error.response && (error.response.status === 400 || error.response.status === 500)) {
                 setPopupMessage('There was an error processing your request. Please try again.');
@@ -61,6 +73,7 @@ function DeletePage() {
                 setPopupMessage('An unexpected error occurred. Please try again.');
             }
         }
+        setShowLoading(false);
         setShowPopup(true);
     };
 
@@ -87,14 +100,30 @@ function DeletePage() {
                         value={searchInput} 
                         onChange={handleSearchChange} 
                     />
-                    <button className="search-button" onClick={handleSearchClick}>Search</button>
+                    <div className="submit-button-container">
+                        {!showLoading && (
+                            <button className="search-button" onClick={handleSearchClick}>
+                                Search
+                            </button>
+                        )}{showLoading && (
+                            <div className="search-button">
+                                <ReactLoading type="spin" color="#fff" height={100} width={100} />
+                            </div>
+                        )}
+                  </div>
                 </div>
                 {showTextBox && (
                     <div className="result-container">
                         {dummyData.map((user, index) => (
                             <div key={index} className="result-item">
                                 <span>{user.employeeID} - {user.firstName} {user.lastName} - {user.email}</span>
-                                <button className="edit-button" onClick={() => handleDeleteClick(user.employeeID)}>Delete</button>
+                                {!showLoading && (
+                                    <button className="edit-button" onClick={() => handleDeleteClick(user.employeeID)}>Delete</button>
+                                )} { showLoading && (
+                                    <div className="edit-button">
+                                        <ReactLoading type="spin" color="#fff" height={100} width={100} />
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>

@@ -171,15 +171,20 @@ function EditPage() {
                         value={searchInput}
                         onChange={handleSearchChange}
                     />
-                    {!showLoading && (
-                        <button className="search-button" onClick={handleSearchClick}>
-                            Search
-                        </button>
-                    )}{showLoading && (
-                        <div className="search-button">
-                            <ReactLoading type="spin" color="#fff" height={100} width={100} />
-                        </div>
-                    )}
+                    <div className="submit-button-container">
+                        {!showLoading && (
+                            <button className="search-button" onClick={handleSearchClick}>
+                                Search
+                            </button>
+                        )}{showLoading && (
+                            <div className="search-button">
+                                <ReactLoading type="spin" color="#fff" height={100} width={100} />
+                            </div>
+                        )}
+                  </div>
+                    
+                        
+                    
                 </div>
                 {showTextBox && currentEditIndex === null && (
                     <div className="result-container">

@@ -84,7 +84,7 @@ function NumberPad() {
       <div className="submit-button-container">
         {!showLoading && (
         <button className="submit-button" onClick={navigateToHomeAdminPage}>
-          Go to Home Admin Page
+          Login
         </button>
         )}{showLoading && (
           <div className="submit-button">
