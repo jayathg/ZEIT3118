@@ -69,6 +69,14 @@ html, body {
   100% { background-position: 0% 50%; }
 }
 
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
 
 .submit-button {
   padding: 20px 40px; /* Existing padding */
@@ -83,6 +91,8 @@ html, body {
   box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Existing shadow */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Existing transitions */
 }
+
+
 
 .submit-button:hover, .submit-button:focus {
   transform: scale(1.05); /* Scale up on hover/focus */
