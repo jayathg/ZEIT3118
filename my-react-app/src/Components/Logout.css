@@ -7,7 +7,7 @@ body {
 }
 /* Logo styling */
 .company-logo {
-    position: fixed; /* Absolute positioning for the logo */
+    position: absolute; /* Absolute positioning for the logo */
     max-width: 350px; /* Adjust this value based on your design needs */
     height: auto; /* Maintain aspect ratio */
     left: 5px; /* Margin area the logo horizontally and adds margin */

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactLoading from 'react-loading';
 import './NumberPad.css';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -9,6 +10,7 @@ function NumberPad() {
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
   const [numbers, setNumbers] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
+  const [showLoading, setShowLoading] = useState(false);
 
   // Function to shuffle numbers
   const shuffleNumbers = () => {
@@ -26,11 +28,13 @@ function NumberPad() {
   };
 
   const navigateToHomeAdminPage = async () => {
+    showLoadingAnimation();
     console.log("Navigating to Home Admin Page");
     try {
       const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger1?userID=${employeeID}`);
       console.log("Login response:", response.data);
       Cookies.set('authState', response.data.state);
+      setShowLoading(false);
       setPopupMessage(`Magic link sent to user ${employeeID}. Please check your email.`);
       setShowPopup(true);
     } catch (error) {
@@ -40,6 +44,7 @@ function NumberPad() {
       } else {
         setPopupMessage('An unexpected error occurred. Please try again.');
       }
+      setShowLoading(false);
       setShowPopup(true);
     }
   };
@@ -54,9 +59,14 @@ function NumberPad() {
     setShowPopup(false);
   };
 
+  const showLoadingAnimation = () => {
+    setShowLoading(true);
+  }
+
+
   return (
     <div className="number-pad-container">
-      <img src="/logo.png" alt="Company Logo" className="company-logo" />
+      <img src="/logo.png" alt="Company Logo" className="company-logo2" />
       <div className="number-pad">
         <h1>Enter Your PIN</h1>
         <div className="display-panel">{input}</div>
@@ -72,11 +82,18 @@ function NumberPad() {
         </button>
       </div>
       <div className="submit-button-container">
+        {!showLoading && (
         <button className="submit-button" onClick={navigateToHomeAdminPage}>
-          Go to Home Admin Page
+          Login
         </button>
+        )}{showLoading && (
+          <div className="submit-button">
+            <ReactLoading type="spin" color="#fff" height={100} width={100} />
+          </div>
+        )}
       </div>
-
+      
+      
       {showPopup && (
         <div className="popup">
           <div className="popup-content">

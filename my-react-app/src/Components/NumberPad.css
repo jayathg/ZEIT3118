@@ -69,6 +69,14 @@ html, body {
   100% { background-position: 0% 50%; }
 }
 
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
 
 .submit-button {
   padding: 20px 40px; /* Existing padding */
@@ -84,6 +92,8 @@ html, body {
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Existing transitions */
 }
 
+
+
 .submit-button:hover, .submit-button:focus {
   transform: scale(1.05); /* Scale up on hover/focus */
   box-shadow: 0 12px 24px rgba(0,0,0,0.25); /* Increased shadow on hover */
@@ -95,12 +105,13 @@ html, body {
   box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Smaller shadow to simulate "pressing" the button */
   transform: scale(0.98); /* Scale down slightly to simulate a press effect */
 }
-.company-logo {
-  position: absolute; /* Absolute positioning for the logo */
-  max-width: 3350px; /* Adjust this value based on your design needs */
+.company-logo2 {
+  position:absolute;
+  width:300px; /* Absolute positioning for the logo */
+  max-width: 350px; /* Adjust this value based on your design needs */
   height: auto; /* Maintain aspect ratio */
   left: 20px; /* Margin area the logo horizontally and adds margin */
-  top: 100px; /* Margin area the logo vertically and adds margin */
+  top: 20px; /* Margin area the logo vertically and adds margin */
 }
 .display-panel {
   font-size: 30px;

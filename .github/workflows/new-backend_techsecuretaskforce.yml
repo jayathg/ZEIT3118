@@ -3,7 +3,7 @@ name: Build and deploy Node.js app to Azure Web App - techsecuretaskforce
 on:
   push:
     branches:
-      - sprint3/backend
+      - sprint4/backend
   workflow_dispatch:
 
 jobs:

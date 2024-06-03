@@ -16,12 +16,24 @@ body, html {
     min-height: 30vh; /* Use min-height to maintain alignment */
     text-align: center;
 }
+.header-container {
+    position: relative;
+    display: flex;
+    align-items: center; /* Center items vertically */
+    width: 100%; /* Full width */
+    padding: 20px; /* Add some padding if needed */
+    box-sizing: border-box; /* Ensure padding is included in width */
+}
 
 .heading-container {
-    display: flex;
-    justify-content: center; /* Center items horizontally */
-    width: 100%;
-    margin-bottom: 20px; /* Space below the heading */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.heading-container h2 {
+    margin: 0; /* Remove default margin */
 }
 
 
@@ -43,14 +55,20 @@ body, html {
 }
 
 .search-button {
-    width: 80px; /* Match the width of the search input */
-    padding: 10px 20px;
-    font-size: 14px;
+    width: 100px; /* Set the width to match the spinner size */
+    height: 100px; /* Set the height to match the spinner size */
+    padding: 10px;
+    font-size: 16px;
     border: none;
     border-radius: 4px;
     background-color: #007bff;
     color: white;
     cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
 }
 
 .search-button:hover {
@@ -59,9 +77,7 @@ body, html {
 
 .company-logo {
     width: 300px; /* Adjust the size as needed */
-    position: absolute;
-    top: 80px; /* Adjust as needed */
-    right: 20px; /* Adjust as needed */
+    
 }
 
 .result-container {
@@ -103,13 +119,20 @@ body, html {
 }
 
 .confirm-button {
+    width: 100px; /* Set the width to match the spinner size */
+    height: 100px; /* Set the height to match the spinner size */
     padding: 10px 20px;
     font-size: 16px;
-    cursor: pointer;
-    background-color: #28a745;
-    color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
     margin-top: 20px;
 }
 
@@ -147,6 +170,14 @@ html, body {
     animation: fadeIn 0.3s ease-in-out;
   }
   
+  .loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
   .popup-content h2 {
     margin-top: 0;
     color: #333; /* Dark grey color for text */

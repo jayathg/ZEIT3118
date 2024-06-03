@@ -17,11 +17,32 @@ body, html {
     text-align: center;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 30vh; /* Use min-height to maintain alignment */
+  text-align: center;
+}
+.header-container {
+  position: relative;
+  display: flex;
+  align-items: center; /* Center items vertically */
+  width: 100%; /* Full width */
+  padding: 20px; /* Add some padding if needed */
+  box-sizing: border-box; /* Ensure padding is included in width */
+}
+
 .heading-container {
-    display: flex;
-    justify-content: center; /* Center items horizontally */
-    width: 100%;
-    margin-bottom: 20px; /* Space below the heading */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.heading-container h2 {
+  margin: 0; /* Remove default margin */
 }
 
 
@@ -59,9 +80,10 @@ body, html {
 
 .company-logo {
     width: 300px; /* Adjust the size as needed */
-    position: absolute;
-    top: 80px; /* Adjust as needed */
+    position: static;
+    top: 20px; /* Adjust as needed */
     right: 20px; /* Adjust as needed */
+
 }
 
 .result-container {

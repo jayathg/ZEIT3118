@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import ReactLoading from 'react-loading';
 import Navbar from './Navbar'; // Import your Navbar component
 import './HomeAdminPage.css'; // Use HomeAdminPage CSS for styling
 import './EditPage.css';
@@ -12,6 +13,8 @@ function EditPage() {
     const [searchInput, setSearchInput] = useState('');
     const [popupMessage, setPopupMessage] = useState('');
     const [showPopup, setShowPopup] = useState(false);
+    const [errorMessages, setErrorMessages] = useState({ fname: "", lname: "", email: "", accessLevel: "" });
+    const [showLoading, setShowLoading] = useState(false);
 
     const handleSearchChange = (e) => {
         setSearchInput(e.target.value);
@@ -21,7 +24,12 @@ function EditPage() {
         setShowPopup(false);
     };
 
+    const showLoadingAnimation = () => {
+        setShowLoading(true);
+      }
+
     const handleSearchClick = async () => {
+        showLoadingAnimation();
         console.log("Searching User");
         try {
             const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger5?searchQuery=${searchInput}`);
@@ -35,22 +43,30 @@ function EditPage() {
     
             // Extract the relevant information
             if (responseData.message === "Found users") {
+                if(responseData.result.length === 0) {
+                    setShowLoading(false);
+                    setPopupMessage("No users found.");
+                    setShowPopup(true);
+                    return;
+                }
                 const users = responseData.result;
                 console.log("Found users:", users);
-    
+                setShowLoading(false);
+
                 // You can also set this data to the state if you want to display it in the UI
                 setDummyData(users);
                 setShowTextBox(true);
             } else {
+                setShowLoading(false);
                 console.error("Error:", responseData.body);
                 setPopupMessage(`Error: ${responseData.body}`);
             }
         } catch (error) {
+            setShowLoading(false);
             console.error("Unable to search:", error.response ? error.response.data.error : error.message);
             setPopupMessage(`Unable to search: ${error.response ? error.response.data.error : error.message}`);
         }
     };
-    
 
     const handleEditClick = (index) => {
         const entry = dummyData.find(user => user.employeeID === index);
@@ -60,7 +76,7 @@ function EditPage() {
             fname: entry.firstName || "", 
             lname: entry.lastName || "", 
             email: entry.email || "", 
-            accessLevel: entry.accessLevel || "" 
+            accessLevel: entry.accessLevel !== undefined ? String(entry.accessLevel) : "" 
         }); // Initialize the input fields with existing entry values
     };
 
@@ -69,13 +85,50 @@ function EditPage() {
             ...editValues,
             [key]: event.target.value,
         });
+        validateInput(key, event.target.value);
+    };
+
+    const validateInput = (key, value) => {
+        let errorMessage = "";
+        if (key === "email") { // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+                errorMessage = "Please enter a valid email.";
+            }
+        } else if (key === "accessLevel") { // Access level validation
+            if (value !== "1" && value !== "0") {
+                errorMessage = "Access level must be 1 or 0.";
+            }
+        }
+        setErrorMessages({
+            ...errorMessages,
+            [key]: errorMessage
+        });
     };
 
     const handleConfirmClick = async () => {
+        setShowLoading(true);
+
+        // Validate all inputs before sending
+        let isValid = true;
+        for (const [key, value] of Object.entries(editValues)) {
+            validateInput(key, value);
+            if (errorMessages[key]) {
+                isValid = false;
+            }
+        }
+
+        if (!isValid) {
+            setPopupMessage('Please fix the errors in the form.');
+            setShowPopup(true);
+            return;
+        }
+
         const userID = currentEditIndex;
-        console.log("Edited Values:", editValues);
+        const formattedAccessLevel = editValues.accessLevel.toLowerCase() === 'true' ? 1 : 0; // Convert to 1 or 0
+        console.log("Edited Values:", {...editValues, accessLevel: formattedAccessLevel});
         try {
-            const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger6?userID=${userID}&fname=${editValues.fname}&lname=${editValues.lname}&email=${editValues.email}&accessLevel=${editValues.accessLevel}`);
+            const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger6?userID=${userID}&fname=${editValues.fname}&lname=${editValues.lname}&email=${editValues.email}&accessLevel=${formattedAccessLevel}`);
             console.log(response);
             
             // Access the response data
@@ -84,18 +137,20 @@ function EditPage() {
             // Check the structure of the response
             console.log(responseData);
             if (responseData.message === "Edited users") {
-                //const success = responseData.result;
                 console.log("Edited user:", userID);
                 setPopupMessage(`User ${userID} has been updated.`);
 
             } else {
+                setShowLoading(false);
                 console.error("Error:", responseData.body);
                 setPopupMessage(`Error: ${responseData.body}`);
             }
         } catch (error) {
+            setShowLoading(false);
             console.error("Unable to edit:", error.response ? error.response.data.error : error.message);
             setPopupMessage('An error occurred while updating the user.');
         }
+        setShowLoading(false);
         setShowPopup(true);
         setCurrentEditIndex(null); // Hide the input boxes after confirming
         setShowTextBox(false); // Show the search results again
@@ -104,9 +159,13 @@ function EditPage() {
     return (
         <div className="page-container">
             <Navbar />
-            <div className="heading-container">
-                <h2>Search For An Entry To Edit</h2>
-            </div>
+            <header className="header-container">
+                <img src="/logo.png" alt="Company Logo" className="company-logo" />
+                <div className="heading-container">
+                    <h2>Search For An Entry To Edit</h2>
+                </div>
+            </header>
+
             <div className="container">
                 <div className="search-container">
                     <input 
@@ -116,14 +175,33 @@ function EditPage() {
                         value={searchInput}
                         onChange={handleSearchChange}
                     />
-                    <button className="search-button" onClick={handleSearchClick}>Search</button>
+                    <div className="submit-button-container">
+                        {!showLoading && (
+                            <button className="search-button" onClick={handleSearchClick}>
+                                Search
+                            </button>
+                        )}{showLoading && (
+                            <div className="search-button">
+                                <ReactLoading type="spin" color="#fff" height={100} width={100} />
+                            </div>
+                        )}
+                  </div>
+                    
+                        
+                    
                 </div>
                 {showTextBox && currentEditIndex === null && (
                     <div className="result-container">
                         {dummyData.map((user, index) => (
                             <div key={index} className="result-item">
                                 <span>{user.employeeID} - {user.firstName} {user.lastName} - {user.email}</span>
-                                <button className="edit-button" onClick={() => handleEditClick(user.employeeID)}>Edit</button>
+                                {!showLoading && (
+                                    <button className="edit-button" onClick={() => handleEditClick(user.employeeID)}>Edit</button>
+                                )} { showLoading && (
+                                    <div className="edit-button">
+                                        <ReactLoading type="spin" color="#fff" height={100} width={100} />
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>
@@ -137,6 +215,9 @@ function EditPage() {
                             className="edit-input"
                             placeholder="First Name"
                         />
+                        {errorMessages.fname && (
+                            <div className="error-message">{errorMessages.fname}</div>
+                        )}
                         <input
                             type="text"
                             value={editValues.lname}
@@ -144,6 +225,9 @@ function EditPage() {
                             className="edit-input"
                             placeholder="Last Name"
                         />
+                        {errorMessages.lname && (
+                            <div className="error-message">{errorMessages.lname}</div>
+                        )}
                         <input
                             type="email"
                             value={editValues.email}
@@ -151,6 +235,9 @@ function EditPage() {
                             className="edit-input"
                             placeholder="Email"
                         />
+                        {errorMessages.email && (
+                            <div className="error-message">{errorMessages.email}</div>
+                        )}
                         <input
                             type="text"
                             value={editValues.accessLevel}
@@ -158,6 +245,9 @@ function EditPage() {
                             className="edit-input"
                             placeholder="Access Level"
                         />
+                        {errorMessages.accessLevel && (
+                            <div className="error-message">{errorMessages.accessLevel}</div>
+                        )}
                         <button className="confirm-button" onClick={handleConfirmClick}>
                             Click to Confirm
                         </button>
@@ -172,7 +262,6 @@ function EditPage() {
                     </div>
                 )}
             </div>
-            <img src="/logo.png" alt="Company Logo" className="company-logo" />
         </div>
     );
 }

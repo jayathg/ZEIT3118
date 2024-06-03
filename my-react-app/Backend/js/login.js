@@ -38,10 +38,8 @@ async function sendMagicLink(email) {
 
         const response = await axios.request(options);
         console.log(response.data);
-        // Handle response data as needed
     } catch (error) {
         console.error(error);
-        // Handle errors
     }
 }
 
@@ -51,7 +49,6 @@ async function handleLogin(userID) {
         await sendMagicLink(email);
     } catch (error) {
         console.error("Error:", error.message);
-        // Handle any errors
     }
 }
 
@@ -65,9 +62,11 @@ async function testLogin() {
         console.error("Error retrieving email:", error.message);
     }
     
-    //console.log("Handling login...");
-    
 }
 
-testLogin();
-handleLogin('2')
+module.exports = {
+    getEmailFromUserID,
+    sendMagicLink,
+    handleLogin,
+    testLogin
+};
