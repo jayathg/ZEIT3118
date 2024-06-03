@@ -51,7 +51,7 @@ function AddPage() {
     };
 
     const handleConfirmClick = async() => {
-        setShowLoading(true);
+        showLoadingAnimation();
 
         // Validate all inputs before sending
         let isValid = true;
