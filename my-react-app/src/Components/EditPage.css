@@ -109,16 +109,20 @@ body, html {
 }
 
 .confirm-button {
-    width: 80px; /* Match the width of the search input */
-    height: 40px;
+    width: 100px; /* Set the width to match the spinner size */
+    height: 100px; /* Set the height to match the spinner size */
     padding: 10px 20px;
-    position: relative;   
     font-size: 16px;
-    cursor: pointer;
-    background-color: #28a745;
-    color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
     margin-top: 20px;
 }
 
