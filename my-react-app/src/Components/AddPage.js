@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import Navbar from './Navbar'; 
+import ReactLoading from 'react-loading';
 import './HomeAdminPage.css'; 
 import './AddPage.css';
 
@@ -10,7 +11,7 @@ function AddPage() {
     const [popupMessage, setPopupMessage] = useState('');
     const [showPopup, setShowPopup] = useState(false);
     const [errorMessages, setErrorMessages] = useState(["", "", "", ""]);
-
+    const [showLoading, setShowLoading] = useState(false);
     const placeholders = ["First Name", "Last Name", "Email", "Access Level"];
 
     const toggleData = () => {
@@ -20,6 +21,10 @@ function AddPage() {
     const handleClosePopup = () => {
         setShowPopup(false);
     };
+
+    const showLoadingAnimation = () => {
+        setShowLoading(true);
+      } 
 
     const handleInputChange = (index, event) => {
         const newValues = [...inputValues];
@@ -46,6 +51,8 @@ function AddPage() {
     };
 
     const handleConfirmClick = async() => {
+        showLoadingAnimation();
+
         // Validate all inputs before sending
         let isValid = true;
         inputValues.forEach((value, index) => {
@@ -56,6 +63,8 @@ function AddPage() {
         });
 
         if (!isValid) {
+            setShowLoading(false);
+
             setPopupMessage('Please fix the errors in the form.');
             setShowPopup(true);
             return;
@@ -74,15 +83,23 @@ function AddPage() {
             if (responseData.message === "Added user") {
                 const users = responseData.result;
                 console.log("Added user:", users);
+                setShowLoading(false);
+
                 setPopupMessage(`User ${users} has been added.`);
             } else {
+                setShowLoading(false);
+
                 console.error("Error:", responseData.body);
                 setPopupMessage(`Error: ${responseData.body}`);
             }
         } catch (error) {
+            setShowLoading(false);
+
             console.error("Unable to add user:", error.response ? error.response.data.error : error.message);
             setPopupMessage('An error occurred while adding the user.');
         }
+        setShowLoading(false);
+
         setShowPopup(true);
         setInputValues(["", "", "", ""]); // Clear the input values after confirming
         setShowData(false); // Hide the input boxes after confirming
@@ -116,9 +133,16 @@ function AddPage() {
                             )}
                         </div>
                     ))}
-                    <button className="confirm-button" onClick={handleConfirmClick}>
+                    {!showLoading && (
+                        <button className="confirm-button" onClick={handleConfirmClick}>
                         Click to Confirm
                     </button>
+                    )}{showLoading && (
+                        <div className="confirm-button">
+                            <ReactLoading type="spin" color="#fff" height={100} width={100} />
+                        </div>
+                    )}
+                    
                 </div>
             )}
             {showPopup && (
