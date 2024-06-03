@@ -59,7 +59,7 @@ body, html {
 
 .company-logo {
     width: 300px; /* Adjust the size as needed */
-    position: fixed;
+    position: static;
     top: 80px; /* Adjust as needed */
     right: 20px; /* Adjust as needed */
 }

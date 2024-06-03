@@ -7,7 +7,7 @@
 }
 
 .company-logo {
-    position: fixed;
+    position: static;
     width: 100px;
     margin-bottom: 20px;
 }
