@@ -128,13 +128,7 @@ function EditPage() {
         const formattedAccessLevel = editValues.accessLevel.toLowerCase() === 'true' ? 1 : 0; // Convert to 1 or 0
         console.log("Edited Values:", {...editValues, accessLevel: formattedAccessLevel});
         try {
-            const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger6`, {
-                userID,
-                fname: editValues.fname,
-                lname: editValues.lname,
-                email: editValues.email,
-                accessLevel: formattedAccessLevel,
-            });
+            const response = await axios.post(`https://techsecuretaskforcefunction.azurewebsites.net/api/httpTrigger6?userID=${userID}&fname=${editValues.fname}&lname=${editValues.lname}&email=${editValues.email}&accessLevel=${formattedAccessLevel}`);
             console.log(response);
             
             // Access the response data
