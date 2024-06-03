@@ -108,10 +108,12 @@ function AddPage() {
     return (
         <div>
             <Navbar />
-            <div className="header">
+            <header className="header-container">
                 <img src="/logo.png" alt="Company Logo" className="company-logo" />
-                <h1>This is the Add Page</h1>
-            </div>
+                <div className="heading-container">
+                    <h2>Search For An Entry To Delete</h2>
+                </div>
+            </header>
             <div className="button-container">
                 <button className="show-button" onClick={toggleData}>
                     {showData ? "Hide Data" : "Click to add data"}

@@ -1,15 +1,34 @@
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 30vh; /* Use min-height to maintain alignment */
+  text-align: center;
+}
+.header-container {
+  position: relative;
+  display: flex;
+  align-items: center; /* Center items vertically */
+  width: 100%; /* Full width */
+  padding: 20px; /* Add some padding if needed */
+  box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+.heading-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.heading-container h2 {
+  margin: 0; /* Remove default margin */
 }
 
 .company-logo {
-    position: static;
-    width: 100px;
-    margin-bottom: 20px;
+  width: 300px; /* Adjust the size as needed */
+  
 }
 
 .button-container {

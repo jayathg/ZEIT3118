@@ -88,9 +88,13 @@ function DeletePage() {
     return (
         <div>
             <Navbar />
-            <div className="heading-container">
-                <h2>Search For An Entry To Delete</h2>
-            </div>
+            <header className="header-container">
+                <img src="/logo.png" alt="Company Logo" className="company-logo" />
+                <div className="heading-container">
+                    <h2>Search For An Entry To Delete</h2>
+                </div>
+            </header>
+            
             <div className="container">
                 <div className="search-container">
                     <input 
@@ -138,7 +142,6 @@ function DeletePage() {
                     </div>
                 )}
             </div>
-            <img src="/logo.png" alt="Company Logo" className="company-logo" />
         </div>
     );
 }

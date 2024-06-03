@@ -159,9 +159,13 @@ function EditPage() {
     return (
         <div className="page-container">
             <Navbar />
-            <div className="heading-container">
-                <h2>Search For An Entry To Edit</h2>
-            </div>
+            <header className="header-container">
+                <img src="/logo.png" alt="Company Logo" className="company-logo" />
+                <div className="heading-container">
+                    <h2>Search For An Entry To Edit</h2>
+                </div>
+            </header>
+
             <div className="container">
                 <div className="search-container">
                     <input 
@@ -258,7 +262,6 @@ function EditPage() {
                     </div>
                 )}
             </div>
-            <img src="/logo.png" alt="Company Logo" className="company-logo" />
         </div>
     );
 }
