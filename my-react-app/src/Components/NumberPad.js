@@ -66,7 +66,7 @@ function NumberPad() {
 
   return (
     <div className="number-pad-container">
-      <img src="/logo.png" alt="Company Logo" className="company-logo" />
+      <img src="/logo.png" alt="Company Logo" className="company-logo2" />
       <div className="number-pad">
         <h1>Enter Your PIN</h1>
         <div className="display-panel">{input}</div>

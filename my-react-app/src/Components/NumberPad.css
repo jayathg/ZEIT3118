@@ -105,12 +105,13 @@ html, body {
   box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Smaller shadow to simulate "pressing" the button */
   transform: scale(0.98); /* Scale down slightly to simulate a press effect */
 }
-.company-logo {
-  position: absolute; /* Absolute positioning for the logo */
-  max-width: 3350px; /* Adjust this value based on your design needs */
+.company-logo2 {
+  position:absolute;
+  width:300px; /* Absolute positioning for the logo */
+  max-width: 350px; /* Adjust this value based on your design needs */
   height: auto; /* Maintain aspect ratio */
   left: 20px; /* Margin area the logo horizontally and adds margin */
-  top: 100px; /* Margin area the logo vertically and adds margin */
+  top: 20px; /* Margin area the logo vertically and adds margin */
 }
 .display-panel {
   font-size: 30px;
